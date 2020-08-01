@@ -5,6 +5,7 @@ import config from './config.js';
 import mongoose from 'mongoose';
 
 import userRoute from './routes/userRoute.js';
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ mongoose.connect(mongodbUrl,  {
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use("/api/users", userRoute);
 
 app.get("/api/shops", (req, res) => {

@@ -17,9 +17,10 @@
             "name": "Shop Name 2",
             "description": "Description 2",
             "category": ["Category 1"],
-            "productItems": [{"pname": "pname1","pprice": "RS 2500","pdesc": "pdesc1"},
-                {"pname": "pname2","pprice": "RS 2500","pdesc": "pdesc2"},
-                {"pname": "pname3","pprice": "RS 2500","pdesc": "pdesc3"}]
+            "productItems": [
+                {"pname": "pname1","pprice": "RS 2500","pdesc": "pdesc1","_pid": "1"},
+                {"pname": "pname2","pprice": "RS 2500","pdesc": "pdesc2","_pid": "2"},
+                {"pname": "pname3","pprice": "RS 2500","pdesc": "pdesc3","_pid": "3"}]
         },
         {
             "_id": "3",
@@ -27,9 +28,10 @@
             "name": "Shop Name 3",
             "description": "Description 3",
             "category": ["Category 1"],
-            "productItems": [{"pname": "pname1","pprice": "RS 2500","pdesc": "pdesc1"},
-                {"pname": "pname2","pprice": "RS 2500","pdesc": "pdesc2"},
-                {"pname": "pname3","pprice": "RS 2500","pdesc": "pdesc3"}]
+            "productItems": [
+                {"pname": "pname1","pprice": "RS 2500","pdesc": "pdesc1","_pid": "1"},
+                {"pname": "pname2","pprice": "RS 2500","pdesc": "pdesc2","_pid": "2"},
+                {"pname": "pname3","pprice": "RS 2500","pdesc": "pdesc3","_pid": "3"}]
         }
     ]
 }
