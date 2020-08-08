@@ -5,7 +5,7 @@ import { addToCart, removeFromCart } from '../actions/cartActions';
 export default function Cartpage(props) {
 
     const shopID = props.match.params.id;
-    const productID = props.location.search? Number(props.location.search.split("=")[1]):1;
+    const productID = props.location.search? String(props.location.search.split("=")[1]):1;
     console.log(productID);
     const dispatch = useDispatch();
 

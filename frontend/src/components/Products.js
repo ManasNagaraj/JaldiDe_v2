@@ -16,7 +16,7 @@ export default function Products(props) {
                 {
                     props.data.map((product) => {
                     return(
-                        <div key={product._pid}>
+                        <div key={product._id}>
                         <ProductCard
                         photos={[
                             'https://i.imgur.com/jRVDeI8.jpg',
@@ -28,7 +28,7 @@ export default function Products(props) {
                         description='kskcsmsmcklsclksmdlkcm ldsmclkclkdsclks clskmdclksmclmcl lmslcmlksmclksc lmslkcmlkms'
                         buttonText='Add to cart'
                         rating={3}
-                        url={"http://localhost:3000/cart/"+props.id+"?product="+product._pid}
+                        url={"http://localhost:3000/cart/"+props.id+"?product="+product._id}
                         />
                         </div>
                     )})

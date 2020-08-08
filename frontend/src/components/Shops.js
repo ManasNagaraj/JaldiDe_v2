@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {TaggedContentCard} from 'react-ui-cards';
 
 export default class Shops extends Component {
-// export default function Shops(props) {
     render() {
-        //console.log(this.props.shops[0])
         return (
             <div>
                 <div className='card-container'>
@@ -16,7 +14,7 @@ export default class Shops extends Component {
                         <TaggedContentCard
                         float= "false"
                         href={'/shop/'+ shop._id}
-                        thumbnail={shop.image}
+                        thumbnail="https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2016/09/22/Photos/Processed/kirana3-kVmB--621x414@LiveMint.JPG"
                         title={shop.name}
                         description={shop.description}
                         tags={shop.category}

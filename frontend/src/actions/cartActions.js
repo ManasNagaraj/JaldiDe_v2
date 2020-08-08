@@ -3,16 +3,17 @@ import { ADD_TO_CART, CART_REMOVE_ITEM } from "../constants/cartConstants";
 import Cookie from "js-cookie";
 
 const addToCart = (shopID,productID) => async (dispatch, getState) => {
+    
     try{
         const {data} = await Axios.get("/api/shops/"+shopID);
-
+        productID = ""+productID;
+        const object = data.productItems.find( x => x._id === productID);
+        //console.log(object);
         dispatch({type: ADD_TO_CART, payload:{
-
-            product: data.productItems[productID-1]._pid,
-            pname: data.productItems[productID-1].pname,
-            pprice: data.productItems[productID-1].pprice,
-            pdesc: data.productItems[productID-1].pdesc
-
+            product: object._id,
+            pname: object.pname,
+            pprice: object.pprice,
+            pdesc: object.pdesc
         }})
 
         const { cart: { cartItems } } = getState();

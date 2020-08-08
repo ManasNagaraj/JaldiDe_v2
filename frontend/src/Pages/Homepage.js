@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { listShops } from '../actions/shopActions';
 
 export default function Homepage() {
-
+    
     const shopList = useSelector(state => state.shopList);
     const { shops, loading, error } = shopList;
     const dispatch = useDispatch();

@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import {Navbar,Nav,NavDropdown} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import image from '../cart.png';
+import { useSelector } from 'react-redux';
+import Cookie from 'js-cookie';
 
-export class Navstuff extends Component {
-    render() {
+export default function Navstuff(props) {
+  
+      const userSignin = useSelector(state => state.userSignin);
+      const { loading, userInfo, error } = userSignin;
+
+      const sellerSignin = useSelector(state => state.sellerSignin);
+      const {  sellerInfo } = sellerSignin;
+
         return (
             <div >
               <Navbar bg="light" variant="light" expand="lg">
@@ -32,14 +41,19 @@ export class Navstuff extends Component {
                 </Navbar.Collapse>
 
                 <Navbar.Text>
-                  {/* Signed in as: <a href="#login">Harsh</a> */}
                   <a href="/cart"><h5>MyCart</h5></a>
+                  {
+                  userInfo ? <div>Signed in as: <a href="#login">{userInfo._id}</a> </div>:
+                  <Link to="/users/signin">Sign In</Link>
+                  }
+                  {
+                  sellerInfo ? <div>Signed in as Seller: <a href="#login">{sellerInfo._id}</a> </div>:
+                  <Link to="/users/signin">Sign In</Link>
+                  }
                 </Navbar.Text>
         
               </Navbar>
             </div>
         )
-    }
 }
 
-export default Navstuff
