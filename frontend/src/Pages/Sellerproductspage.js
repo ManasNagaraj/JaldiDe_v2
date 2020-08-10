@@ -1,56 +1,71 @@
 
 import React, { useEffect ,useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { saveProduct, listShops } from '../actions/shopActions';
+import { saveProduct, listShops ,deleteProduct} from '../actions/shopActions';
 
 export default function Sellerproductspage(props) {
 
+    let sellerid = props.match.params.id;
+
     const [modalVisible, setModalVisible] = useState(false);
-    const sellerid = props.match.params.id;
     const [pname, setPName] = useState('');
     const [pdesc, setPDesc] = useState('');
     const [pprice, setPPrice] = useState('');
+    const [p_id , setId] = useState('');
 
     const productSave = useSelector(state => state.productSave);
     const { loading: loadingSave, success: successSave, error: errorSave } = productSave;
 
     const shopList = useSelector(state => state.shopList);
-    const { shops, loading, error } = shopList;
-
+    const { shops, loading } = shopList;
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(listShops());
         if (successSave) {
             //props.history.push("/addproducts/"+id);
-          //setModalVisible(false);
+          setModalVisible(false);
         }
         return () => {
           //
         };
       }, [successSave]);
 
+      
     const openModal = (product) => {
         setModalVisible(true);
+        setId(product._id);
         setPName(product.pname);
         setPDesc(product.pdesc);
         setPPrice(product.pprice);
     }
 
+    
+
     const submitHandler = (e) => {
+        console.log(p_id)
         e.preventDefault();
         dispatch(saveProduct({
             _id: sellerid,
-            pname, pdesc, pprice,
+            pname, pdesc, pprice, product_id: p_id,
         }));
     }
 
-    // if(shops)
-    // {
-    //     //console.log(shops)
-    //     const stuf = shops.find( x => x.seller_id === sellerid);
-    //     console.log(stuf.name);
-    // }
+    //getting the particular productItems from the whole shop object via Seller_id
+    let products;
+    if(!loading)
+    {
+        let selleridstring = ""+sellerid;
+        let object = shops.find( x => x.seller_id === selleridstring);
+        if(object)
+        {
+            products = object.productItems;
+        }
+    }
+    
+    const deleteHandler = (product) => {
+        dispatch(deleteProduct({prod_id: product._id, sel_id: sellerid}));
+    }
 
     return (
         
@@ -105,6 +120,43 @@ export default function Sellerproductspage(props) {
                 </form>
             </div>
             }
+
+            { products ? 
+            <div className="product-list">
+            <table className="table">
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <div>
+                {
+                products.map(product => (<tr key={product._id}>
+                
+                <td>{product._id}</td>
+                <td>{product.pname}</td>
+                <td>{product.pprice}</td>
+                <td>{product.pdesc}</td>
+                <td>
+                    <button className="button" onClick={() => openModal(product)}>Edit</button>
+                    {' '}
+                    <button className="button" onClick={() => deleteHandler(product)}>Delete</button>
+                </td>
+                </tr>))
+                }
+                </div>
+            </tbody>
+            </table>
+            </div>
+            : 
+            <div>loading</div>
+            }
+
     </div>
     )
 }

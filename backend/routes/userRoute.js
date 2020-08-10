@@ -61,17 +61,3 @@ router.get("/stuff1", async (req, res) => {
 });
 
 export default router; 
-
-// router.get("/createadmin", async (req, res) => {
-//   try {
-//     const user = new User({
-//       name: 'Basir',
-//       email: 'basir.jafarzadeh@gmail.com',
-//       password: '1234',
-//     });
-//     const newUser = await user.save();
-//     res.send(newUser);
-//   } catch (error) {
-//     res.send({ msg: error.message });
-//   }
-// });

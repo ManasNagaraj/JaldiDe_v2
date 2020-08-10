@@ -1,9 +1,9 @@
+// TO DO:- Routing needs to be done for some requests
 import express from 'express';
 import data from './data.json';
 import dotenv from 'dotenv';
 import config from './config.js';
 import mongoose from 'mongoose';
-
 import userRoute from './routes/userRoute.js';
 import sellerRoute from './routes/sellerRoute.js';
 import bodyParser from 'body-parser';
@@ -39,22 +39,9 @@ app.get("/api/shops/:id", async(req, res) => {
         res.status(404).send({ msg: "Shop not found! "})
 });
 
-// app.get("/createshop/:id", async (req, res) => {
-//     try{
-//       const sel_id = req.params.id;
-//       const shop = new Shop();
-//       shop.shopName = 'fuckkkkking shopppppp 4';
-//       shop.seller_id = sel_id;
-//       shop.products.push({pname:"aa 4",pdesc:"aaaa 4"});
-//       const newShop = await shop.save();
-//       res.send(newShop)
-//     }catch (error) {
-//       res.send({ msg: error.message });
-//     }
-//   });
-
+//Seller Creates Shop
 app.post("/createshop/:id", async (req, res) => {
-    // res.send(req.body._id)   
+
   const shop = new Shop({
     seller_id: req.params.id,
     name: req.body.name,
@@ -69,6 +56,7 @@ app.post("/createshop/:id", async (req, res) => {
   return res.status(500).send({ message: ' Error in Creating Product.' });
 })
 
+//Add new Product to a Shop
 app.post("/addproducts/:id", async (req, res) => {
 
     const shop = await Shop.findOne({
@@ -76,17 +64,53 @@ app.post("/addproducts/:id", async (req, res) => {
     });
     if(shop)
     {
-    shop.productItems.push({pname:req.body.pname ,pdesc:req.body.pdesc,pprice:req.body.pprice});
-    shop.save();
-    res.send(shop);
+        shop.productItems.push({ pname:req.body.pname , pdesc:req.body.pdesc , pprice:req.body.pprice });
+        shop.save();
+        res.send(shop);
     }
 })
 
+//Product Update
+app.put("/addproducts/:id/:productid", async (req, res) => {
+    await Shop.updateOne(
+    { 'productItems._id': req.params.productid },
+    {
+        $set: { 
+            "productItems.$.pname": req.body.pname,
+            "productItems.$.pdesc": req.body.pdesc,
+            "productItems.$.pprice": req.body.pprice 
+        }
+    }
+    ).then(res.send("Success in Updating Product"));
+    
+})
 
+//Product Delete
+app.delete('/deleteproducts/:id/:productid', async (req, res) => {
 
-// app.get("/everything" , async (req,res) => {
-//     const shop = await Shop.find({});
-//     res.send(shop);
-// })
+     try {
+      const shop = await Shop.findOne({seller_id: req.params.id});
+      if(shop)
+      {
+        const prod = await shop.productItems.find(
+            productItems => productItems.id === req.params.productid
+        );
+        // Make sure comment exists
+            
+        // res.send(prod)
+        // if (!prod) {
+        //     return res.status(404).json({ msg: 'Product does not exist' });
+        // }
+    
+        shop.productItems = shop.productItems.filter(
+            ({ id }) => id !== req.params.productid
+        );
+        await shop.save();
+      } 
+     } catch (err) {
+       console.error(err.message);
+       return res.status(500).send('Server Error');
+     }
+  });
 
 app.listen(5000, () => console.log("Server started at port 5000"));

@@ -1,4 +1,4 @@
-import { SHOP_LIST_REQUEST, SHOP_LIST_SUCCESS, SHOP_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, SHOP_SAVE_REQUEST, SHOP_SAVE_SUCCESS, SHOP_SAVE_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL } from "../constants/shopConstants";
+import { SHOP_LIST_REQUEST, SHOP_LIST_SUCCESS, SHOP_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, SHOP_SAVE_REQUEST, SHOP_SAVE_SUCCESS, SHOP_SAVE_FAIL, PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL } from "../constants/shopConstants";
 
 function shopListReducer(state = {shops:[]}, action){
     switch (action.type) {
@@ -54,4 +54,19 @@ function productSaveReducer(state = { product: {} }, action) {
     }
 }
 
-export { shopListReducer , productListReducer, shopSaveReducer, productSaveReducer}
+function productDeleteReducer(state = { product: {} }, action) {
+
+  switch (action.type) {
+    case PRODUCT_DELETE_REQUEST:
+      return { loading: true };
+    case PRODUCT_DELETE_SUCCESS:
+      return { loading: false, product: action.payload, success: true };
+    case PRODUCT_DELETE_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state;
+  }
+}
+
+
+export { shopListReducer , productListReducer, shopSaveReducer, productSaveReducer, productDeleteReducer}
