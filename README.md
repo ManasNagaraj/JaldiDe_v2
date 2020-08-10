@@ -6,8 +6,8 @@ Delete the node_modules from ./JaldiDe_v2 folder and ./frontend folder and run "
 ## TO DO's:-
 
 ### Backend:-
-1. Orders page both for Sellers and Users </ br>
-2. Checkout Page with adding User location/address. </ br>
-3. Adding images via AWS S3. </ br>
+1. Orders page both for Sellers and Users 
+2. Checkout Page with adding User location/address.
+3. Adding images via AWS S3.
 
 ### Frontend:-
