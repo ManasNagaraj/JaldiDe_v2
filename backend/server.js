@@ -8,16 +8,21 @@ import sellerRoute from './routes/sellerRoute.js';
 import bodyParser from 'body-parser';
 import Shop from './models/shopModel.js';
 import uploadRoute from './routes/uploadRoute.js';
+import orderRoute from './routes/orderRoute.js';
 
 dotenv.config();
 
 const mongodbUrl = config.MONGODB_URL;
 mongoose
-  .connect(mongodbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
+  .connect(
+    mongodbUrl,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    },
+    console.log('MongoDB connected....')
+  )
   .catch((error) => console.log(error.reason));
 
 const app = express();
@@ -25,6 +30,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/api/users', userRoute);
 app.use('/api/seller', sellerRoute);
+app.use('/api/orders', orderRoute);
 
 app.get('/api/shops', async (req, res) => {
   // res.send(data.shops);

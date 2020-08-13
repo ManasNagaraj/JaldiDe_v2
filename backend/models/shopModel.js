@@ -9,7 +9,7 @@ const shopSchema = new mongoose.Schema({
     {
       pname: String,
       pdesc: String,
-      pprice: String,
+      pprice: Number,
       image: String,
     },
   ],
