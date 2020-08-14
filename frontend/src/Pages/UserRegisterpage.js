@@ -17,7 +17,7 @@ export default function UserRegisterpage(props) {
 
   useEffect(() => {
     if (userInfo) {
-      props.history.push(redirect);
+      props.history.push('/user/signin?redirect=shipping');
     }
     return () => {
       //
