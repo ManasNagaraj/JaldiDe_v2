@@ -18,6 +18,6 @@ app.use(bodyParser.json());
 app.use('/api/users', userRoute);
 app.use('/api/seller', sellerRoute);
 app.use('/api/orders', orderRoute);
-app.use('/api/shop', shopRoute);
+app.use('/api/shops', shopRoute);
 app.use('/addproducts/api/upload', uploadRoute);
 app.listen(5000, () => console.log('Server started at port 5000'));
