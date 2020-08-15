@@ -1,0 +1,11 @@
+h1 {
+  text-align: center;
+}
+
+divs {
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+  align-items: center;
+  /* padding: 5% 20% 0 20%; */
+}
