@@ -82,3 +82,60 @@ tbody > tr:nth-child(odd) {
   border-top: 0.3rem #f08000 solid;
   color: #f08000;
 }
+
+/* Homepage styling */
+.height-80{
+  min-height: 80vh;
+  background-image:url('./img/bg.png');
+  /* background-color: white; */
+  background-repeat:no-repeat;
+} 
+.hero-title{
+  font-size: 4rem;
+  font-weight: 700;
+  font-family:'Product Sans',sans-serif;
+}
+
+.lead{
+  padding: 0 2rem;
+  font-weight: 400;
+  max-width: 60%;
+
+}
+.hero-btn{
+  padding: 0.5rem 1.5rem;
+  background-color:#FDE24F;
+  color: white;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  transition:transform 0.2s ease-in-out;
+  margin-right: 2rem;
+}
+.hero-btn:hover{
+  background-color:#ebd34a;
+  transform:translateY(-4px)
+
+}
+.login-btn{
+  background-color:lightgray;
+}
+.login-btn:hover{
+  background-color:rgb(173, 173, 173);
+}
+@media(max-width:768px){
+  .hero-title{
+    font-size:3rem;
+  }
+  .lead{
+    padding: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) { 
+  .lead{
+    padding:0 2rem;
+    max-width: 90%;
+    background-color:green;
+  }
+ }
