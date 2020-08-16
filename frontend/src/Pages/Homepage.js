@@ -19,16 +19,7 @@ export default function Homepage() {
     <div>loading...</div>
   ) : error ? (
     { error }
-  ) : (
-    <div>
-      <div>
-        {/* Hero goes here */}
-        <h1>Hero</h1>
-      </div>
-      <div>
-        {/* How to use section goes here */}
-        <h1>How to Use</h1>
-      </div>
+  ) : (   
       <Shops shops={shops}></Shops>
     </div>
   );

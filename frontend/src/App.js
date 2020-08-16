@@ -8,7 +8,7 @@ import Cartpage from './Pages/Cartpage';
 import Placeorderpage from './Pages/Placeorderpage';
 import { useSelector } from 'react-redux';
 import UserSigninpage from './Pages/UserSigninpage';
-import UserRegisterpage from './Pages/Shipping';
+import UserRegisterpage from './Pages/UserRegisterpage';
 import SellerSigninpage from './Pages/SellerSigninpage';
 import SellerRegisterpage from './Pages/SellerRegisterpage';
 import Sellerinventorypage from './Pages/Sellerinventorypage';
