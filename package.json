@@ -1,11 +1,11 @@
 {
   "name": "jaldide",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch backend --exec babel-node --experimental-json-modules backend/server.js"
+    "start": "nodemon --watch backend --exec babel-node --experimental-json-modules backend/server.js",
+    "dev": "nodemon --watch backend --exec babel-node backend/server.js"
   },
   "author": "",
   "license": "ISC",
