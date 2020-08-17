@@ -3,6 +3,7 @@ import multer from 'multer';
 import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
 import config from '../config.js';
+const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -15,10 +16,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-const router = express.Router();
+// @route    POST api/seller/register
+// @desc     Seller Register
+// @access   Private
 
 router.post('/', upload.single('image'), (req, res) => {
-  res.send(`/${req.file.path}`);
+  try {
+    res.send(`/${req.file.path}`);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('server error');
+  }
 });
 
 aws.config.update({
@@ -38,8 +46,17 @@ const storageS3 = multerS3({
 });
 
 const uploadS3 = multer({ storage: storageS3 });
+
+// @route    POST api/seller/register
+// @desc     Seller Register
+// @access   Private
 router.post('/s3', uploadS3.single('image'), (req, res) => {
-  res.send(req.file.location);
+  try {
+    res.send(req.file.location);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('server error');
+  }
 });
 
 export default router;

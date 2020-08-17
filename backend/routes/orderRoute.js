@@ -31,15 +31,20 @@ router.post('/', async (req, res) => {
 // @desc     show order on the DashBoard
 // @access   Private
 router.get('/:id', async (req, res) => {
-  const shop = await Shop.findOne({
-    seller_id: req.params.id,
-  });
+  try {
+    const shop = await Shop.findOne({
+      seller_id: req.params.id,
+    });
 
-  console.log(shop._id);
-  const order = await Order.find({
-    'cartItems.shop_id': shop._id,
-  });
-  console.log(order);
+    console.log(shop._id);
+    const order = await Order.find({
+      'cartItems.shop_id': shop._id,
+    });
+    console.log(order);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('server error');
+  }
 });
 
 export default router;

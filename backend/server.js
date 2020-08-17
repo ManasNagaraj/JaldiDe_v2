@@ -8,16 +8,21 @@ import uploadRoute from './routes/uploadRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import shopRoute from './routes/shopRoute.js';
 
-dotenv.config();
+try {
+  dotenv.config();
 
-mongoConnect();
+  mongoConnect();
 
-const app = express();
+  const app = express();
 
-app.use(bodyParser.json());
-app.use('/api/users', userRoute);
-app.use('/api/seller', sellerRoute);
-app.use('/api/orders', orderRoute);
-app.use('/api/shops', shopRoute);
-app.use('/addproducts/api/upload', uploadRoute);
-app.listen(5000, () => console.log('Server started at port 5000'));
+  app.use(bodyParser.json());
+  app.use('/api/users', userRoute);
+  app.use('/api/seller', sellerRoute);
+  app.use('/api/orders', orderRoute);
+  app.use('/api/shops', shopRoute);
+  app.use('/addproducts/api/upload', uploadRoute);
+  app.listen(5000, () => console.log('Server started at port 5000'));
+} catch (error) {
+  console.error(error.message);
+  process.exit(1);
+}

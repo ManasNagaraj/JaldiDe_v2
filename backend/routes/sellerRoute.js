@@ -8,20 +8,25 @@ const router = express.Router();
 // @desc     Seller Sign In
 // @access   Private
 router.post('/signin', async (req, res) => {
-  const signinSeller = await Seller.findOne({
-    email: req.body.email,
-    password: req.body.password,
-  });
-  if (signinSeller) {
-    res.send({
-      _id: signinSeller.id,
-      name: signinSeller.name,
-      email: signinSeller.email,
-      isAdmin: signinSeller.isAdmin,
-      token: getToken(signinSeller),
+  try {
+    const signinSeller = await Seller.findOne({
+      email: req.body.email,
+      password: req.body.password,
     });
-  } else {
-    res.status(401).send({ msg: 'Invalid Email or Password.' });
+    if (signinSeller) {
+      res.send({
+        _id: signinSeller.id,
+        name: signinSeller.name,
+        email: signinSeller.email,
+        isAdmin: signinSeller.isAdmin,
+        token: getToken(signinSeller),
+      });
+    } else {
+      res.status(401).send({ msg: 'Invalid Email or Password.' });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('server error');
   }
 });
 
@@ -29,22 +34,27 @@ router.post('/signin', async (req, res) => {
 // @desc     Seller Register
 // @access   Private
 router.post('/register', async (req, res) => {
-  const seller = new Seller({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  });
-  const newSeller = await seller.save();
-  if (newSeller) {
-    res.send({
-      _id: newSeller.id,
-      name: newSeller.name,
-      email: newSeller.email,
-      isAdmin: newSeller.isAdmin,
-      token: getToken(newSeller),
+  try {
+    const seller = new Seller({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
     });
-  } else {
-    res.status(401).send({ msg: 'Invalid Seller Data.' });
+    const newSeller = await seller.save();
+    if (newSeller) {
+      res.send({
+        _id: newSeller.id,
+        name: newSeller.name,
+        email: newSeller.email,
+        isAdmin: newSeller.isAdmin,
+        token: getToken(newSeller),
+      });
+    } else {
+      res.status(401).send({ msg: 'Invalid Seller Data.' });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('server error');
   }
 });
 
