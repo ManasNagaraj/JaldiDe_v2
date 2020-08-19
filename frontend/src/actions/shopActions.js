@@ -17,10 +17,10 @@ import {
 } from '../constants/shopConstants';
 import axios from 'axios';
 
-const listShops = () => async (dispatch) => {
+const listShops = (searchKeyword = '') => async (dispatch) => {
   try {
     dispatch({ type: SHOP_LIST_REQUEST });
-    const { data } = await axios.get('/api/shops/');
+    const { data } = await axios.get('/api/shops/?searchKeyword='+searchKeyword);
     dispatch({ type: SHOP_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: SHOP_LIST_FAIL, payload: error.message });
