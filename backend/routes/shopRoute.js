@@ -3,11 +3,18 @@ import Shop from '../models/shopModel.js';
 
 const router = express.Router();
 
-// @route    GET api/shop
+// @route    GET api/shops
 // @desc     give all the listed shops
 // @access   Private
 router.get('/', async (req, res) => {
-  const shops = await Shop.find({});
+  const searchKeyword = req.query.searchKeyword
+    ? {
+        name: {
+          $regex: req.query.searchKeyword,
+          $options: 'i',
+        },
+      }: {};
+  const shops = await Shop.find({...searchKeyword});
   res.send(shops);
 });
 
