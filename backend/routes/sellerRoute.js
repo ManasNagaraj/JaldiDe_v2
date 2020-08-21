@@ -1,5 +1,6 @@
 import express from 'express';
-import { getToken } from '../auth/Seller_util.js';
+import { getTokenSeller } from '../auth/Seller_util.js';
+// import { getTokenUser } from '../auth/User_util.js';
 import Seller from '../models/sellerModel.js';
 
 const router = express.Router();
@@ -19,7 +20,7 @@ router.post('/signin', async (req, res) => {
         name: signinSeller.name,
         email: signinSeller.email,
         isAdmin: signinSeller.isAdmin,
-        token: getToken(signinSeller),
+        token: getTokenSeller(signinSeller),
       });
     } else {
       res.status(401).send({ msg: 'Invalid Email or Password.' });
@@ -47,7 +48,7 @@ router.post('/register', async (req, res) => {
         name: newSeller.name,
         email: newSeller.email,
         isAdmin: newSeller.isAdmin,
-        token: getToken(newSeller),
+        token: getTokenSeller(newSeller),
       });
     } else {
       res.status(401).send({ msg: 'Invalid Seller Data.' });

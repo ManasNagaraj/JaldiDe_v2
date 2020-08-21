@@ -45,18 +45,17 @@ const saveShop = (shop) => async (dispatch, getState) => {
     } = getState();
     //await axios.get(shop.product_id);
     if (shop.p_id !== 10) {
-      console.log(shop.product_id);
-      const { data } = await axios.post('api/shops/create/' + shop._id, shop);
+      //console.log(shop.product_id);
+      const { data } = await axios.post('/api/shops/create/' + shop._id, shop);
       dispatch({ type: SHOP_SAVE_SUCCESS, payload: data });
+    } else {
+      const { data } = await axios.put('/api/products/' + shop._id, shop, {
+        headers: {
+          Authorization: 'Bearer ' + sellerInfo.token,
+        },
+      });
+      dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     }
-    //   else {
-    //     const { data } = await Axios.put('/api/products/' + product._id, product, {
-    //       headers: {
-    //         'Authorization': 'Bearer ' + userInfo.token
-    //       }
-    //     });
-    //     dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
-    //   }
   } catch (error) {
     dispatch({ type: SHOP_SAVE_FAIL, payload: error.message });
   }
@@ -68,19 +67,30 @@ const saveProduct = (product) => async (dispatch, getState) => {
     const {
       sellerSignin: { sellerInfo },
     } = getState();
-    console.log(product.product_id);
+    //console.log(product);
 
     if (!product.product_id) {
       const { data } = await axios.post(
-        'api/shops/addproducts/' + product._id,
-        product
+        '/api/shops/addproducts/' + product._id,
+        product,
+        {
+          headers: {
+            Authorization: 'Bearer ' + sellerInfo.token,
+          },
+        }
       );
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     } else {
       const { data } = await axios.put(
-        'api/shops/addproducts/' + product._id + '/' + product.product_id,
-        product
+        '/api/shops/addproducts/' + product._id + '/' + product.product_id,
+        product,
+        {
+          headers: {
+            Authorization: 'Bearer ' + sellerInfo.token,
+          },
+        }
       );
+
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     }
   } catch (error) {
@@ -90,14 +100,22 @@ const saveProduct = (product) => async (dispatch, getState) => {
 
 const deleteProduct = (stuff) => async (dispatch, getState) => {
   try {
-    //const { userSignin: { userInfo } } = getState();
+    const {
+      sellerSignin: { sellerInfo },
+    } = getState();
     dispatch({ type: PRODUCT_DELETE_REQUEST, payload: stuff });
-    console.log(stuff.prod_id);
+    // console.log(sellerInfo.token);
     const { data } = await axios.delete(
-      'api/ahops/deleteproducts/' + stuff.sel_id + '/' + stuff.prod_id
+      '/api/shops/deleteproducts/' + stuff.sel_id + '/' + stuff.prod_id,
+      {
+        headers: {
+          Authorization: 'Bearer ' + sellerInfo.token,
+        },
+      }
     );
     dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
   } catch (error) {
+    console.log(error.message);
     dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.message });
   }
 };

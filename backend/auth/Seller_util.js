@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from '../config.js';
 
-const getToken = (seller) => {
+const getTokenSeller = (seller) => {
   return jwt.sign(
     {
       _id: seller._id,
@@ -16,4 +16,4 @@ const getToken = (seller) => {
   );
 };
 
-export { getToken };
+export { getTokenSeller };
