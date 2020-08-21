@@ -46,17 +46,9 @@ const saveShop = (shop) => async (dispatch, getState) => {
     //await axios.get(shop.product_id);
     if (shop.p_id !== 10) {
       console.log(shop.product_id);
-      const { data } = await axios.post('api/shops/create/' + shop._id, shop);
+      const { data } = await axios.post('/api/shops/create/' + shop._id, shop);
       dispatch({ type: SHOP_SAVE_SUCCESS, payload: data });
     }
-    //   else {
-    //     const { data } = await Axios.put('/api/products/' + product._id, product, {
-    //       headers: {
-    //         'Authorization': 'Bearer ' + userInfo.token
-    //       }
-    //     });
-    //     dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
-    //   }
   } catch (error) {
     dispatch({ type: SHOP_SAVE_FAIL, payload: error.message });
   }
@@ -72,13 +64,13 @@ const saveProduct = (product) => async (dispatch, getState) => {
 
     if (!product.product_id) {
       const { data } = await axios.post(
-        'api/shops/addproducts/' + product._id,
+        '/api/shops/addproducts/' + product._id,
         product
       );
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     } else {
       const { data } = await axios.put(
-        'api/shops/addproducts/' + product._id + '/' + product.product_id,
+        '/api/shops/addproducts/' + product._id + '/' + product.product_id,
         product
       );
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
@@ -94,7 +86,7 @@ const deleteProduct = (stuff) => async (dispatch, getState) => {
     dispatch({ type: PRODUCT_DELETE_REQUEST, payload: stuff });
     console.log(stuff.prod_id);
     const { data } = await axios.delete(
-      'api/ahops/deleteproducts/' + stuff.sel_id + '/' + stuff.prod_id
+      '/api/shops/deleteproducts/' + stuff.sel_id + '/' + stuff.prod_id
     );
     dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
   } catch (error) {
