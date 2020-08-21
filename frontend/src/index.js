@@ -5,12 +5,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store';
+import { Grommet } from 'grommet';
 
 ReactDOM.render(
   <Provider store={store}>
+  <Grommet plain>
   <React.StrictMode>
     <App />
   </React.StrictMode>
+  </Grommet>
   </Provider>,
   document.getElementById('root')
 );

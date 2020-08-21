@@ -21,7 +21,7 @@ export default function Products(props) {
                   'https://i.imgur.com/raPe27t.jpg',
                   'https://i.imgur.com/IpEsYSH.jpg',
                 ]}
-                price={product.pprice}
+                price={"Rs. "+product.pprice}
                 productName={product.pname}
                 description='kskcsmsmcklsclksmdlkcm ldsmclkclkdsclks clskmdclksmclmcl lmslcmlksmclksc lmslkcmlkms'
                 buttonText='Add to cart'

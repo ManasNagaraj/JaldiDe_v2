@@ -1,29 +1,78 @@
 import React, { Component } from 'react';
-import {TaggedContentCard} from 'react-ui-cards';
 
-export default class Shops extends Component {
-    render() {
+import cx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import TextInfoContent from '@mui-treasury/components/content/textInfo';
+import { useFourThreeCardMediaStyles } from '@mui-treasury/styles/cardMedia/fourThree';
+import { useN04TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n04';
+import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
+import Grid from '@material-ui/core/Grid';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    maxWidth: 250,
+    minWidth: 250,
+    minHeight:450,
+    maxHeight:500,
+    margin: 0,
+    borderRadius: 6,
+    padding: 12
+  },
+  media: {
+    borderRadius: 6,
+  },
+  gridContainer: {
+    // paddingLeft:30,
+    // paddingRight:30,
+    // paddingTop: 50,
+    padding: 20
+  }
+}));
+
+//export default class Shops extends Component {
+export default function Shops(props) {
+    //render() {
+        const styles = useStyles();
+        const mediaStyles = useFourThreeCardMediaStyles();
+        const textCardContentStyles = useN04TextInfoContentStyles();
+        const shadowStyles = useOverShadowStyles({ inactive: false });
         return (
+
             <div>
-                <div className='card-container'>
+                <Grid container
+                alignItems="center" justify="center" >
                 {
 
-                    this.props.shops.map((shop) => {
+                    props.shops.map((shop) => {
                     return(
                         <div key={shop._id}>
-                        <TaggedContentCard
-                        float= "false"
-                        href={'/shop/'+ shop._id}
-                        thumbnail="https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2016/09/22/Photos/Processed/kirana3-kVmB--621x414@LiveMint.JPG"
-                        title={shop.name}
-                        description={shop.description}
-                        tags={shop.category}
-                        />
+                        <Grid item xs={12} sm={6} md={3} lg={3} xl={2} className={styles.gridContainer}>
+                            <Card className={cx(styles.root, shadowStyles.root)} onClick={event =>  window.location.href='/shop/'+shop._id}>
+                            <CardMedia
+                                className={cx(styles.media, mediaStyles.root)}
+                                image={
+                                'https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2016/09/22/Photos/Processed/kirana3-kVmB--621x414@LiveMint.JPG'
+                                }
+                            />
+                            <CardContent>
+                                <TextInfoContent
+                                classes={textCardContentStyles}
+                                overline={shop.category}
+                                heading={shop.name}
+                                body={shop.description}
+                                />
+                            </CardContent>
+                            </Card>
+                        </Grid>
+                        
                         </div>
                     )})
                 }
-                </div>                
+                </Grid>    
             </div>
         )
     }
-}
+//}
