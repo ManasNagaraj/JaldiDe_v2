@@ -23,7 +23,7 @@ export default function Navstuff(props) {
 
   return (
     <div>
-      <Navbar bg='light' variant='light' expand='lg'>
+      <Navbar bg='light' variant='light' expand='lg'>np
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Brand href='/'>
           <img
@@ -54,26 +54,26 @@ export default function Navstuff(props) {
           {userInfo ? (
             console.log('hi')
           ) : (
-            <Button>sign up</Button>
+              <Button>sign up</Button>
 
-            // <Link to='/users/signin'>Sign In</Link>
-          )}{' '}
+              // <Link to='/users/signin'>Sign In</Link>
+            )}{' '}
           {userInfo ? (
             <IconButton>
               <User></User>
             </IconButton>
           ) : (
-            <Dropdown drop='left' margin='20'>
-              <Dropdown.Toggle variant='success' id='dropdown-basic'>
-                Sign In
+              <Dropdown drop='left' margin='20'>
+                <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                  Sign In
               </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item href='/seller/signin'>Seller</Dropdown.Item>
-                <Dropdown.Item href='/user/signin'>User</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          )}{' '}
+                <Dropdown.Menu>
+                  <Dropdown.Item href='/seller/signin'>Seller</Dropdown.Item>
+                  <Dropdown.Item href='/user/signin'>User</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            )}{' '}
           {sellerInfo ? <div></div> : <div></div>}
         </Navbar.Collapse>
       </Navbar>
