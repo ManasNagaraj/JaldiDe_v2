@@ -15,11 +15,11 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 250,
     minWidth: 250,
-    minHeight:450,
-    maxHeight:500,
+    minHeight: 450,
+    maxHeight: 500,
     margin: 0,
     borderRadius: 6,
-    padding: 12
+    padding: 12,
   },
   media: {
     borderRadius: 6,
@@ -28,51 +28,52 @@ const useStyles = makeStyles(() => ({
     // paddingLeft:30,
     // paddingRight:30,
     // paddingTop: 50,
-    padding: 20
-  }
+    padding: 20,
+  },
 }));
 
 //export default class Shops extends Component {
 export default function Shops(props) {
-    //render() {
-        const styles = useStyles();
-        const mediaStyles = useFourThreeCardMediaStyles();
-        const textCardContentStyles = useN04TextInfoContentStyles();
-        const shadowStyles = useOverShadowStyles({ inactive: false });
-        return (
+  //render() {
+  const styles = useStyles();
+  const mediaStyles = useFourThreeCardMediaStyles();
+  const textCardContentStyles = useN04TextInfoContentStyles();
+  const shadowStyles = useOverShadowStyles({ inactive: false });
+  return (
 
-            <div>
-                <Grid container
-                alignItems="center" justify="center" >
-                {
+    <div>
+      <Grid container
+        alignItems="center" justify="center" >
+        {
 
-                    props.shops.map((shop) => {
-                    return(
-                        <div key={shop._id}>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={2} className={styles.gridContainer}>
-                            <Card className={cx(styles.root, shadowStyles.root)} onClick={event =>  window.location.href='/shop/'+shop._id}>
-                            <CardMedia
-                                className={cx(styles.media, mediaStyles.root)}
-                                image={
-                                'https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2016/09/22/Photos/Processed/kirana3-kVmB--621x414@LiveMint.JPG'
-                                }
-                            />
-                            <CardContent>
-                                <TextInfoContent
-                                classes={textCardContentStyles}
-                                overline={shop.category}
-                                heading={shop.name}
-                                body={shop.description}
-                                />
-                            </CardContent>
-                            </Card>
-                        </Grid>
-                        
-                        </div>
-                    )})
-                }
-                </Grid>    
-            </div>
-        )
-    }
+          props.shops.map((shop) => {
+            return (
+              <div key={shop._id}>
+                <Grid item xs={12} sm={6} md={3} lg={3} xl={2} className={styles.gridContainer}>
+                  <Card className={cx(styles.root, shadowStyles.root)} onClick={event => window.location.href = '/shop/' + shop._id}>
+                    <CardMedia
+                      className={cx(styles.media, mediaStyles.root)}
+                      image={
+                        'https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2016/09/22/Photos/Processed/kirana3-kVmB--621x414@LiveMint.JPG'
+                      }
+                    />
+                    <CardContent>
+                      <TextInfoContent
+                        classes={textCardContentStyles}
+                        overline={shop.category}
+                        heading={shop.name}
+                        body={shop.description}
+                      />
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+              </div>
+            )
+          })
+        }
+      </Grid>
+    </div>
+  )
+}
 //}

@@ -1,6 +1,6 @@
 import express from 'express';
 import User from '../models/userModel.js';
-import { getToken } from '../auth/User_util.js';
+import { getTokenUser } from '../auth/User_util.js';
 import Shop from '../models/shopModel.js';
 
 const router = express.Router();
@@ -20,7 +20,7 @@ router.post('/signin', async (req, res) => {
         _id: signinUser.id,
         name: signinUser.name,
         email: signinUser.email,
-        token: getToken(signinUser),
+        token: getTokenUser(signinUser),
       });
     } else {
       res.status(401).send({ msg: 'Invalid Email or Password.' });
@@ -47,7 +47,7 @@ router.post('/register', async (req, res) => {
         _id: newUser.id,
         name: newUser.name,
         email: newUser.email,
-        token: getToken(newUser),
+        token: getTokenUser(newUser),
       });
     } else {
       res.status(401).send({ msg: 'Invalid User Data.' });

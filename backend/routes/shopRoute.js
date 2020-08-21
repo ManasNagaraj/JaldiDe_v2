@@ -1,6 +1,8 @@
 import express from 'express';
 import Shop from '../models/shopModel.js';
 
+import { isAuth } from '../middleware/jwtauth.js';
+
 const router = express.Router();
 
 // @route    GET api/shops
@@ -13,8 +15,9 @@ router.get('/', async (req, res) => {
           $regex: req.query.searchKeyword,
           $options: 'i',
         },
-      }: {};
-  const shops = await Shop.find({...searchKeyword});
+      }
+    : {};
+  const shops = await Shop.find({ ...searchKeyword });
   res.send(shops);
 });
 
@@ -25,6 +28,7 @@ router.get('/:id', async (req, res) => {
   try {
     const shopID = req.params.id;
     const shop = await Shop.findOne({ _id: shopID });
+
     if (shop) res.send(shop);
     else res.status(404).send({ msg: 'Shop not found! ' });
   } catch (error) {
@@ -61,7 +65,7 @@ router.post('/create/:id', async (req, res) => {
 // @route    POST api/shop/addproducts/:id
 // @desc     add products to the shopID
 // @access   Private
-router.post('/addproducts/:id', async (req, res) => {
+router.post('/addproducts/:id', isAuth, async (req, res) => {
   try {
     const shop = await Shop.findOne({
       seller_id: req.params.id,
@@ -85,7 +89,7 @@ router.post('/addproducts/:id', async (req, res) => {
 // @route    PUT api/shop/addproducts/:id/:productid
 // @desc     update the existing product details in shopID
 // @access   Private
-router.put('/addproducts/:id/:productid', async (req, res) => {
+router.put('/addproducts/:id/:productid', isAuth, async (req, res) => {
   try {
     await Shop.updateOne(
       { 'productItems._id': req.params.productid },
@@ -107,7 +111,7 @@ router.put('/addproducts/:id/:productid', async (req, res) => {
 // @route    DELETE api/shop/deleteproducts/:id/:productid
 // @desc     delete a product from the shopID
 // @access   Private
-router.delete('/deleteproducts/:id/:productid', async (req, res) => {
+router.delete('/deleteproducts/:id/:productid', isAuth, async (req, res) => {
   try {
     const shop = await Shop.findOne({ seller_id: req.params.id });
     if (shop) {
@@ -125,5 +129,9 @@ router.delete('/deleteproducts/:id/:productid', async (req, res) => {
     return res.status(500).send('Server Error');
   }
 });
+
+// const escapeRegex = (text) => {
+//   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+// };
 
 export default router;

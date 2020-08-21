@@ -1,13 +1,14 @@
 import express from 'express';
 import Shop from '../models/shopModel.js';
 import Order from '../models/orderModel.js';
+import { isAuth } from '../middleware/jwtauth.js';
 
 const router = express.Router();
 
 // @route    POST api/orders
 // @desc     Create an order
 // @access   Private
-router.post('/', async (req, res) => {
+router.post('/', isAuth, async (req, res) => {
   try {
     console.log(req.body);
     const order = new Order({

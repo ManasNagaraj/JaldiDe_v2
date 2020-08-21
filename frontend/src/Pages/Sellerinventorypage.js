@@ -2,105 +2,151 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signin } from '../actions/sellerActions';
- import { saveShop, listShops } from '../actions/shopActions';
+import { saveShop, listShops } from '../actions/shopActions';
+import Axios from 'axios';
 
 export default function Sellerinventorypage(props) {
+  let sellerid = props.match.params.id;
 
-    let sellerid = props.match.params.id;
+  const id = props.match.params.id;
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
+  const [category, setCategory] = useState('');
+  const [image, setImage] = useState('');
+  const [Uploading, setUploading] = useState('');
 
-    const id = props.match.params.id;
-    const [name, setName] = useState('');
-    const [desc, setDesc] = useState('');
-    const [category, setCategory] = useState('');
+  const UploadFileHandler = (e) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('image', file);
+    setUploading(true);
+    Axios.post('api/upload/s3', bodyFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((response) => {
+        setImage(response.data);
+        setUploading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setUploading(false);
+      });
+  };
+  const shopSave = useSelector((state) => state.shopSave);
+  const {
+    loading: loadingSave,
+    success: successSave,
+    error: errorSave,
+  } = shopSave;
 
-    const shopSave = useSelector(state => state.shopSave);
-    const { loading: loadingSave, success: successSave, error: errorSave } = shopSave;
+  //This is to fetch all the shops
+  const shopList = useSelector((state) => state.shopList);
+  const { shops, loading } = shopList;
 
-    //This is to fetch all the shops
-    const shopList = useSelector(state => state.shopList);
-    const { shops, loading } = shopList;
+  let object;
+  if (!loading) {
+    let selleridstring = '' + sellerid;
+    object = shops.find((x) => x.seller_id === selleridstring);
+  }
+  const dispatch = useDispatch();
 
-    let object;
-    if(!loading)
-    {
-        let selleridstring = ""+sellerid;
-        object = shops.find( x => x.seller_id === selleridstring);
+  useEffect(() => {
+    dispatch(listShops());
+    if (successSave) {
+      props.history.push('/addproducts/' + id);
     }
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(listShops());
-        if (successSave) {
-            props.history.push("/addproducts/"+id);
-        }
-        //to check if shop already exsist if so redirect
-        if (object) {
-            if(object._id)
-            {
-                console.log(object._id);
-                props.history.push("/addproducts/"+id);
-            }
-        }
-        return () => {
-          //
-        };
-      }, [successSave,loading]);
-
-
-    const submitHandler = (e) => {
-        e.preventDefault();
-        dispatch(saveShop({
-            _id: id,
-            name, desc, category,
-        }));
+    //to check if shop already exsist if so redirect
+    if (object) {
+      if (object._id) {
+        console.log(object._id);
+        props.history.push('/addproducts/' + id);
+      }
     }
+    return () => {
+      //
+    };
+  }, [successSave, loading]);
 
-    return (
-        
-        <div className="content content-margined">
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      saveShop({
+        _id: id,
+        name,
+        desc,
+        category,
+        image,
+      })
+    );
+  };
 
-            <div className="form">
-                <form onSubmit={submitHandler} >
-                <ul className="form-container">
-                    <li>
-                    <h2>Create your virtual Shop</h2>
-                    </li>
-                    <li>
-                    {loadingSave && <div>Loading...</div>}
-                    {errorSave && <div>{errorSave}</div>}
-                    </li>
+  return (
+    <div className='content content-margined'>
+      <div className='form'>
+        <form onSubmit={submitHandler}>
+          <ul className='form-container'>
+            <li>
+              <h2>Create your virtual Shop</h2>
+            </li>
+            <li>
+              {loadingSave && <div>Loading...</div>}
+              {errorSave && <div>{errorSave}</div>}
+            </li>
 
-                    <li>
-                    <label htmlFor="name">
-                        Shop Name
-                    </label>
-                    <input type="text" name="name" value={name} id="name" onChange={(e) => setName(e.target.value)}>
-                    </input>
-                    </li>
+            <li>
+              <label htmlFor='name'>Shop Name</label>
+              <input
+                type='text'
+                name='name'
+                value={name}
+                id='name'
+                onChange={(e) => setName(e.target.value)}
+              ></input>
+            </li>
 
-                    <li>
-                    <label htmlFor="description">
-                        Description
-                    </label>
-                    <textarea name="description" value={desc} id="desc" onChange={(e) => setDesc(e.target.value)}></textarea>
-                    </li>
-                    <li>
+            <li>
+              <label htmlFor='description'>Description</label>
+              <textarea
+                name='description'
+                value={desc}
+                id='desc'
+                onChange={(e) => setDesc(e.target.value)}
+              ></textarea>
+            </li>
+            <li>
+              <li>
+                <label htmlFor='image'>Image</label>
+                <input
+                  type='text'
+                  name='image'
+                  value={image}
+                  id='image'
+                  onChange={(e) => setImage(e.target.value)}
+                ></input>
+                <input type='file' onChange={UploadFileHandler}></input>
+                {Uploading && <div>Uploading...</div>}
+              </li>
 
-                    <li>
-                    <label htmlFor="name">
-                        Category
-                    </label>
-                    <input type="text" name="category" value={category} id="category" onChange={(e) => setCategory(e.target.value)}>
-                    </input>
-                    </li> 
+              <li>
+                <label htmlFor='name'>Category</label>
+                <input
+                  type='text'
+                  name='category'
+                  value={category}
+                  id='category'
+                  onChange={(e) => setCategory(e.target.value)}
+                ></input>
+              </li>
 
-                    <button type="submit" className="button primary">Create Shop</button>
-                    </li>
-                    
-                </ul>
-                </form>
-            </div>
-            
+              <button type='submit' className='button primary'>
+                Create Shop
+              </button>
+            </li>
+          </ul>
+        </form>
+      </div>
     </div>
-    )
+  );
 }
