@@ -1,59 +1,82 @@
 import React, { Component } from 'react';
-import {Navbar,Nav,NavDropdown} from 'react-bootstrap';
+import { Navbar, Nav, Dropdown } from 'react-bootstrap';
+
 import { Link } from 'react-router-dom';
-import image from '../cart.png';
+import image from '../img/pandey_logo.png';
 import { useSelector } from 'react-redux';
-import Cookie from 'js-cookie';
+
+import { Cart, User } from 'grommet-icons';
+import Badge from '@material-ui/core/Badge';
+import Button from '@material-ui/core/Button';
+
+import IconButton from '@material-ui/core/IconButton';
 
 export default function Navstuff(props) {
-  
-      const userSignin = useSelector(state => state.userSignin);
-      const { loading, userInfo, error } = userSignin;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { loading, userInfo, error } = userSignin;
 
-      const sellerSignin = useSelector(state => state.sellerSignin);
-      const {  sellerInfo } = sellerSignin;
+  const sellerSignin = useSelector((state) => state.sellerSignin);
+  const { sellerInfo } = sellerSignin;
 
-        return (
-            <div >
-              <Navbar bg="light" variant="light" expand="lg">
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Brand href="/" >
-                  <img
-                    alt=""
-                    src={image}
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
-                  />{' '}
-                  JaldiDe
-                </Navbar.Brand>
-              
-                <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="mr-auto">
-                    <Nav.Link href="#home">Sell</Nav.Link>
-                    <Nav.Link href="#home">Manage Inventory</Nav.Link>
-                    <Nav.Link href="#home">How does it Work!</Nav.Link>
-                    <NavDropdown title="Account" id="basic-nav-dropdown">
-                      <NavDropdown.Item href="#action/3.1">Admin</NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.2">User</NavDropdown.Item>
-                    </NavDropdown>
-                  </Nav>
-                </Navbar.Collapse>
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
-                <Navbar.Text>
-                  <a href="/cart"><h5>MyCart</h5></a>
-                  {
-                  userInfo ? <div>Signed in as: <a href="#login">{userInfo._id}</a> </div>:
-                  <Link to="/users/signin">Sign In</Link>
-                  }
-                  {
-                  sellerInfo ? <div>Signed in as Seller: <a href="#login">{sellerInfo._id}</a> </div>:
-                  <Link to="/users/signin">Sign In</Link>
-                  }
-                </Navbar.Text>
-        
-              </Navbar>
-            </div>
-        )
+  return (
+    <div>
+      <Navbar bg='light' variant='light' expand='lg'>
+        <Navbar.Toggle aria-controls='basic-navbar-nav' />
+        <Navbar.Brand href='/'>
+          <img
+            alt=''
+            src={image}
+            width='70'
+            height='70'
+            className='d-inline-block align-top'
+          />
+        </Navbar.Brand>
+        JaldiDe
+        <Navbar.Collapse id='basic-navbar-nav'>
+          <Nav className='mr-auto'>
+            <Nav.Link href='/seller/register'>Sell</Nav.Link>
+
+            <Nav.Link href='/howdoesitwork'>How does it Work!</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+        <Navbar.Collapse className='justify-content-end'>
+          <Link to='/cart'>
+            <IconButton>
+              <Badge badgeContent={cartItems.length} color='secondary'>
+                {' '}
+                <Cart></Cart>
+              </Badge>
+            </IconButton>
+          </Link>
+          {userInfo ? (
+            console.log('hi')
+          ) : (
+            <Button>sign up</Button>
+
+            // <Link to='/users/signin'>Sign In</Link>
+          )}{' '}
+          {userInfo ? (
+            <IconButton>
+              <User></User>
+            </IconButton>
+          ) : (
+            <Dropdown drop='left' margin='20'>
+              <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                Sign In
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href='/seller/signin'>Seller</Dropdown.Item>
+                <Dropdown.Item href='/user/signin'>User</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}{' '}
+          {sellerInfo ? <div></div> : <div></div>}
+        </Navbar.Collapse>
+      </Navbar>
+    </div>
+  );
 }
-
