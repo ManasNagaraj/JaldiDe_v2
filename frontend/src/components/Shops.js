@@ -40,47 +40,40 @@ export default function Shops(props) {
   const textCardContentStyles = useN04TextInfoContentStyles();
   const shadowStyles = useOverShadowStyles({ inactive: false });
   return (
+
     <div>
-      <Grid container alignItems='center' justify='center'>
-        {props.shops.map((shop) => {
-          return (
-            <div key={shop._id}>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={3}
-                lg={3}
-                xl={2}
-                className={styles.gridContainer}
-              >
-                <Card
-                  className={cx(styles.root, shadowStyles.root)}
-                  onClick={(event) =>
-                    (window.location.href = '/shop/' + shop._id)
-                  }
-                >
-                  <CardMedia
-                    className={cx(styles.media, mediaStyles.root)}
-                    image={
-                      'https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2016/09/22/Photos/Processed/kirana3-kVmB--621x414@LiveMint.JPG'
-                    }
-                  />
-                  <CardContent>
-                    <TextInfoContent
-                      classes={textCardContentStyles}
-                      overline={shop.category}
-                      heading={shop.name}
-                      body={shop.description}
+      <Grid container
+        alignItems="center" justify="center" >
+        {
+
+          props.shops.map((shop) => {
+            return (
+              <div key={shop._id}>
+                <Grid item xs={12} sm={6} md={3} lg={3} xl={2} className={styles.gridContainer}>
+                  <Card className={cx(styles.root, shadowStyles.root)} onClick={event => window.location.href = '/shop/' + shop._id}>
+                    <CardMedia
+                      className={cx(styles.media, mediaStyles.root)}
+                      image={
+                        'https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2016/09/22/Photos/Processed/kirana3-kVmB--621x414@LiveMint.JPG'
+                      }
                     />
-                  </CardContent>
-                </Card>
-              </Grid>
-            </div>
-          );
-        })}
+                    <CardContent>
+                      <TextInfoContent
+                        classes={textCardContentStyles}
+                        overline={shop.category}
+                        heading={shop.name}
+                        body={shop.description}
+                      />
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+              </div>
+            )
+          })
+        }
       </Grid>
     </div>
-  );
+  )
 }
 //}
