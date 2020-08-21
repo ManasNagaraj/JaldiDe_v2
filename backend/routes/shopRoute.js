@@ -5,17 +5,20 @@ import { isAuth } from '../middleware/jwtauth.js';
 
 const router = express.Router();
 
-// @route    GET api/shop
+// @route    GET api/shops
 // @desc     give all the listed shops
 // @access   Private
 router.get('/', async (req, res) => {
-  try {
-    const shops = await Shop.find({});
-    res.send(shops);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send('server error');
-  }
+  const searchKeyword = req.query.searchKeyword
+    ? {
+        name: {
+          $regex: req.query.searchKeyword,
+          $options: 'i',
+        },
+      }
+    : {};
+  const shops = await Shop.find({ ...searchKeyword });
+  res.send(shops);
 });
 
 // @route    GET api/shop/:id
