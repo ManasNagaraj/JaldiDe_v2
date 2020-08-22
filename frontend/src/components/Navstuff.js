@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Nav, Dropdown } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
-import image from '../img/pandey_logo.png';
+import image from '../cart.png';
 import { useSelector } from 'react-redux';
 
 import { Cart, User } from 'grommet-icons';

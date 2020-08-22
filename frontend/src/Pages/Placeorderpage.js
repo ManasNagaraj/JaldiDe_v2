@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from '../actions/cartActions';
+import {
+  addToCart,
+  removeFromCart,
+  removeAllFromCart,
+} from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { Row } from 'react-bootstrap';
 
 export default function Placeorder(props) {
   const shopID = props.match.params.id;
@@ -31,6 +37,11 @@ export default function Placeorder(props) {
     );
   };
 
+  const clearCartHandler = () => {
+    dispatch(removeAllFromCart());
+    props.history.push('orderplaced');
+  };
+
   useEffect(() => {
     return () => {
       //
@@ -39,14 +50,14 @@ export default function Placeorder(props) {
 
   return (
     <div>
-      <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className='placeorder'>
         <div className='placeorder-info'>
           <div>
-            <h3>Shipping</h3>
-            <div>
-              {cart.shipping.address}, {cart.shipping.city},
-              {cart.shipping.pincode}, {cart.shipping.country},
+            <h3>Delivery Address</h3>
+            <div style={{ marginTop: '1rem' }}>
+              {cart.shipping.address},<br></br>
+              {cart.shipping.city} - {cart.shipping.pincode},<br></br>
+              {cart.shipping.country}
             </div>
           </div>
 
@@ -54,25 +65,27 @@ export default function Placeorder(props) {
             <ul className='cart-list-container'>
               <li>
                 <h3>Shopping Cart</h3>
-                <div>Price</div>
+                <div>
+                  <h4>Price</h4>
+                </div>
               </li>
               {cartItems.length === 0 ? (
                 <div>Cart is empty</div>
               ) : (
                 cartItems.map((item) => (
                   <li>
-                    {/* <div className='cart-image'>
-                      <img src={item.image} alt='product' />
-                    </div> */}
+                    <div className='cart-image'>
+                      <img src={'item.image'} alt='product' />
+                    </div>
                     <div className='cart-name'>
                       <div>
                         <Link to={'/product/' + item.product}>
                           {item.pname}
                         </Link>
                       </div>
-                      {/* <div>Qty: {item.qty}</div> */}
+                      <div>Qty: {item.qty}</div>
                     </div>
-                    <div className='cart-price'>${item.pprice}</div>
+                    <div className='cart-price'>Rs.{item.pprice}</div>
                   </li>
                 ))
               )}
@@ -82,19 +95,26 @@ export default function Placeorder(props) {
         <div className='placeorder-action'>
           <ul>
             <li>
-              <button
-                className='button primary full-width'
-                onClick={placeOrderHandler}
-              >
-                Place Order
-              </button>
-            </li>
-            <li>
               <h3>Order Summary</h3>
             </li>
             <li>
-              <div>Total Price</div>
-              <div>${itemPrice}</div>
+              <div style={{ flexDirection: 'row' }}>
+                <div>
+                  <h5>Total Price</h5>
+                </div>
+                <div className='cart-price'>Rs.{itemPrice}</div>
+                Free shipping:)
+              </div>
+            </li>
+            <li>
+              <Button
+                variant='contained'
+                color='primary'
+                className='margin'
+                onClick={(placeOrderHandler, clearCartHandler)}
+              >
+                Place Order
+              </Button>
             </li>
           </ul>
         </div>

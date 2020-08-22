@@ -2,6 +2,7 @@ import {
   ADD_TO_CART,
   CART_REMOVE_ITEM,
   CART_SAVE_SHIPPING,
+  CART_REMOVE_ITEM_ALL,
 } from '../constants/cartConstants';
 
 function cartReducer(state = { cartItems: [], shipping: {} }, action) {
@@ -22,6 +23,11 @@ function cartReducer(state = { cartItems: [], shipping: {} }, action) {
     case CART_REMOVE_ITEM:
       return {
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+      };
+
+    case CART_REMOVE_ITEM_ALL:
+      return {
+        cartItems: state.cartItems.filter((x) => x.product === action.payload),
       };
 
     case CART_SAVE_SHIPPING:
