@@ -2,6 +2,7 @@ import Axios from 'axios';
 import {
   ADD_TO_CART,
   CART_REMOVE_ITEM,
+  CART_REMOVE_ITEM_ALL,
   CART_SAVE_SHIPPING,
 } from '../constants/cartConstants';
 import Cookie from 'js-cookie';
@@ -44,4 +45,13 @@ const saveShipping = (data) => (dispatch, getState) => {
   dispatch({ type: CART_SAVE_SHIPPING, payload: data });
 };
 
-export { addToCart, removeFromCart, saveShipping };
+const removeAllFromCart = () => (dispatch, getState) => {
+  dispatch({ type: CART_REMOVE_ITEM_ALL, payload: null });
+
+  const {
+    cart: { cartItems },
+  } = getState();
+  Cookie.set('cartItems', JSON.stringify(cartItems));
+};
+
+export { addToCart, removeFromCart, saveShipping, removeAllFromCart };
