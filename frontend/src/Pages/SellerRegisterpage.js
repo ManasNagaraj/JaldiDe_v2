@@ -15,7 +15,7 @@ export default function SellerRegisterpage(props) {
 
     useEffect(() => {
         if (sellerInfo) {
-          props.history.push("/");
+          props.history.push("/createshop/"+sellerInfo._id);
         }
         return () => {
           //

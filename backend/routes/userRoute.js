@@ -58,24 +58,4 @@ router.post('/register', async (req, res) => {
   }
 });
 
-//random stuff might remove later
-
-// @route    POST api/orders
-// @desc     Create an order
-// @access   Private
-router.get('/stuff1', async (req, res) => {
-  try {
-    const shop = await Shop.findOne({
-      _id: '5f2aff9027c38862cc6bbfd0',
-    });
-    if (shop) {
-      shop.products.push({ pname: 'aa 2', pdesc: 'aaaa 2' });
-      res.send(shop);
-    }
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send('server error');
-  }
-});
-
 export default router;

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import './Shoppage.css';
 import Products from '../components/Products.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts } from '../actions/shopActions';
+import { Heading, Paragraph } from 'grommet';
+import { Box } from "grommet/components/Box";
 
 export default function Shoppage(props) 
 {
@@ -13,7 +14,6 @@ export default function Shoppage(props)
     useEffect( () => 
     {
         dispatch(listProducts(props.match.params.id));
-    
         return () => {
             //
         };
@@ -22,8 +22,17 @@ export default function Shoppage(props)
     return (
         loading ? <div>loading...</div> :
         <div>
-            <h1>{products.name}</h1>
-            <h3>{products.description}</h3>
+            <div style={{paddingLeft:50 , paddingRight:50 , paddingTop:20, paddingBottom:10}}>
+            <Box
+            round="medium"
+            responsive="true"
+            direction="column"
+            // border={{ color: 'brand', size: 'large' }}
+            pad="small">
+            <Heading margin="none" alignSelf="center" pad="small">{products.name}</Heading>
+            <Paragraph margin="none" alignSelf="center">{products.description}</Paragraph>
+            </Box>
+            </div>
             <Products data={products.productItems} id={props.match.params.id}></Products>            
         </div>
     )

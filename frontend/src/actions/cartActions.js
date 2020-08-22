@@ -7,7 +7,7 @@ import {
 } from '../constants/cartConstants';
 import Cookie from 'js-cookie';
 
-const addToCart = (shopID, productID) => async (dispatch, getState) => {
+const addToCart = (shopID, productID, qty) => async (dispatch, getState) => {
   try {
     const { data } = await Axios.get('/api/shops/' + shopID);
     productID = '' + productID;
@@ -22,6 +22,8 @@ const addToCart = (shopID, productID) => async (dispatch, getState) => {
         pname: object.pname,
         pprice: object.pprice,
         pdesc: object.pdesc,
+        image: object.image,
+        qty,
       },
     });
 
