@@ -6,7 +6,7 @@ import { isAuth } from '../middleware/jwtauth.js';
 const router = express.Router();
 
 // @route    GET api/shops
-// @desc     give all the listed shops
+// @desc     give all the listed shops + search query
 // @access   Private
 router.get('/', async (req, res) => {
   const searchKeyword = req.query.searchKeyword

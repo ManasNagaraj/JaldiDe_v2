@@ -23,7 +23,7 @@ export default function Navstuff(props) {
 
   return (
     <div>
-      <Navbar bg='light' variant='light' expand='lg'>np
+      <Navbar bg='light' variant='light' expand='lg'>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Brand href='/'>
           <img
