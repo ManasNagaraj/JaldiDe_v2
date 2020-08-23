@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signin } from '../actions/userActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 export default function UserSigninpage(props) {
   const [email, setEmail] = useState('');
@@ -29,6 +30,12 @@ export default function UserSigninpage(props) {
 
   return (
     <div>
+      {redirect === 'shipping' ? (
+        <CheckoutSteps step1></CheckoutSteps>
+      ) : (
+        console.log('hi')
+      )}
+
       <div className='form'>
         <form onSubmit={submitHandler}>
           <ul className='form-container'>

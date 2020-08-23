@@ -102,8 +102,10 @@ export default function Placeorder(props) {
                 <div>
                   <h5>Total Price</h5>
                 </div>
-                <div className='cart-price'>Rs.{itemPrice}</div>
-                Free shipping:)
+                <div className='cart-price' style={{ color: 'gold' }}>
+                  Rs.{itemPrice}
+                </div>
+                Free shipping {':)'}
               </div>
             </li>
             <li>
