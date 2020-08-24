@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, Dropdown } from 'react-bootstrap';
-
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import image from '../img/logo_low_res.png';
 import { useSelector } from 'react-redux';
-
+import logout from '../actions/userActions';
 import { Cart, User } from 'grommet-icons';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
+import Cookie from 'js-cookie';
 
 import IconButton from '@material-ui/core/IconButton';
 
 export default function Navstuff(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { loading, userInfo, error } = userSignin;
-
+  const dispatch = useDispatch();
   const sellerSignin = useSelector((state) => state.sellerSignin);
   const { sellerInfo } = sellerSignin;
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+
+  const logout = () => {
+    Cookie.set('userInfo', null);
+    Cookie.set('sellerInfo', null);
+    Cookie.set('cartItems', null);
+  };
 
   return (
     <div>
@@ -59,7 +66,7 @@ export default function Navstuff(props) {
             // <Link to='/users/signin'>Sign In</Link>
           )}{' '}
           {userInfo ? (
-            <IconButton>
+            <IconButton onClick={logout} href='/'>
               <User></User>
             </IconButton>
           ) : (
