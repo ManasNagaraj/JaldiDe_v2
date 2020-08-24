@@ -1,4 +1,4 @@
-import React, { useEffect , useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addToCart,
@@ -115,8 +115,11 @@ export default function Placeorder(props) {
                 <div>
                   <h5>Total Price</h5>
                 </div>
-                <div className='cart-price'>Rs.{itemPrice}</div>
-                Free shipping :)
+
+                <div className='cart-price' style={{ color: 'gold' }}>
+                  Rs.{itemPrice}
+                </div>
+                Free shipping {':)'}
               </div>
             </li>
             <li>
@@ -124,7 +127,7 @@ export default function Placeorder(props) {
                 variant='contained'
                 color='primary'
                 className='margin'
-                onClick={(placeOrderHandler) ,handleOpen,clearCartHandler } 
+                onClick={(placeOrderHandler) ,handleOpen } 
               >
                 Place Order
               </Button>

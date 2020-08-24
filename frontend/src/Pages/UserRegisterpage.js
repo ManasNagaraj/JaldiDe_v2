@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { register } from '../actions/userActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 export default function UserRegisterpage(props) {
   const [name, setName] = useState('');
@@ -31,6 +32,11 @@ export default function UserRegisterpage(props) {
 
   return (
     <div>
+      {redirect === 'shipping' ? (
+        <CheckoutSteps step1></CheckoutSteps>
+      ) : (
+        console.log('hi')
+      )}
       <div className='form'>
         <form onSubmit={submitHandler}>
           <ul className='form-container'>
