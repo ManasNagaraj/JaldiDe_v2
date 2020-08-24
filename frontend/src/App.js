@@ -13,6 +13,7 @@ import SellerSigninpage from './Pages/SellerSigninpage';
 import SellerRegisterpage from './Pages/SellerRegisterpage';
 import Sellerinventorypage from './Pages/Sellerinventorypage';
 import Sellerproductspage from './Pages/Sellerproductspage';
+import Userorderpage from './Pages/Userorderpage';
 import Shippingpage from './Pages/Shipping';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path='/' exact={true} component={Homepage} />
         <Route path='/shop/:id' component={Shoppage} />
         <Route path='/cart/:id?' component={Cartpage} />
+        <Route path="/userorder/:id" component={Userorderpage} />
       </div>
     </BrowserRouter>
   );

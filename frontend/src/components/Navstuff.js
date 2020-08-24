@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 export default function Navstuff(props) {
+
   const userSignin = useSelector((state) => state.userSignin);
   const { loading, userInfo, error } = userSignin;
 
@@ -23,7 +24,9 @@ export default function Navstuff(props) {
 
   return (
     <div>
-      <Navbar bg='dark' variant='dark' expand='lg'>
+
+      <Navbar bg='white' variant='light' expand='lg'>
+
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Brand href='/'>
           <img

@@ -5,27 +5,39 @@ import {
   removeFromCart,
   removeAllFromCart,
 } from '../actions/cartActions';
-import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { Row } from 'react-bootstrap';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 export default function Placeorder(props) {
-  const shopID = props.match.params.id;
-  const productID = props.location.search
-    ? String(props.location.search.split('=')[1])
-    : 1;
-  console.log(productID);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems, shipping } = cart;
-  if (!shipping) {
-    props.history.push('shipping');
-  }
+  
+  // if (!shipping) {
+  //   props.history.push('shipping');
+  // }
 
-  const itemPrice = cartItems.reduce((a, c) => a + c.pprice, 0);
+  const useStyles = makeStyles((theme) => ({
+    modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }));
+  const itemPrice = cartItems.reduce((total, product) => total + product.pprice*product.qty, 0);
+
   const placeOrderHandler = () => {
     // create an order
     dispatch(
@@ -37,17 +49,17 @@ export default function Placeorder(props) {
     );
   };
 
-  const clearCartHandler = () => {
-    dispatch(removeAllFromCart());
-    props.history.push('orderplaced');
+  const handleOpen = () => {
+    setOpen(true);
   };
 
-  useEffect(() => {
-    return () => {
-      //
-    };
-  }, []);
+  const clearCartHandler = () => {
+    dispatch(removeAllFromCart());
+  };
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
+  
   return (
     <div>
       <div className='placeorder'>
@@ -55,6 +67,7 @@ export default function Placeorder(props) {
           <div>
             <h3>Delivery Address</h3>
             <div style={{ marginTop: '1rem' }}>
+              
               {cart.shipping.address},<br></br>
               {cart.shipping.city} - {cart.shipping.pincode},<br></br>
               {cart.shipping.country}
@@ -102,6 +115,7 @@ export default function Placeorder(props) {
                 <div>
                   <h5>Total Price</h5>
                 </div>
+
                 <div className='cart-price' style={{ color: 'gold' }}>
                   Rs.{itemPrice}
                 </div>
@@ -113,10 +127,39 @@ export default function Placeorder(props) {
                 variant='contained'
                 color='primary'
                 className='margin'
-                onClick={(placeOrderHandler, clearCartHandler)}
+                onClick={(placeOrderHandler) ,handleOpen } 
               >
                 Place Order
               </Button>
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open}>
+                  <div className={classes.paper}>
+                    <h2 id="transition-modal-title">Order Successfull</h2>
+                    <p id="transition-modal-description">Thank you for choosing us your order will be delivered in 2 hours</p>
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      className='margin'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href='/';
+                        }}
+                      >
+                      Back to Homepage
+                    </Button>
+                  </div>
+                </Fade>
+              </Modal>
             </li>
           </ul>
         </div>
