@@ -7,6 +7,7 @@ import mongoConnect from './databaseConfig/mongodb.js';
 import uploadRoute from './routes/uploadRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import shopRoute from './routes/shopRoute.js';
+import userorderRoute from './routes/userorderRoute.js';
 
 try {
   dotenv.config();
@@ -20,6 +21,7 @@ try {
   app.use('/api/seller', sellerRoute);
   app.use('/api/orders', orderRoute);
   app.use('/api/shops', shopRoute);
+  app.use('/api/userorder', userorderRoute);
   app.use('/addproducts/api/upload', uploadRoute);
   app.use('/createshop/api/upload', uploadRoute);
   app.listen(5000, () => console.log('Server started at port 5000'));
