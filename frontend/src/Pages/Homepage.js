@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Shops from "../components/Shops";
-import { useSelector, useDispatch } from "react-redux";
-import { listShops } from "../actions/shopActions";
+import React, { useEffect, useState } from 'react';
+import Shops from '../components/Shops';
+import { useSelector, useDispatch } from 'react-redux';
+import { listShops } from '../actions/shopActions';
 import { FormSearch } from 'grommet-icons';
 import { Button, Grommet, TextInput } from 'grommet';
-import { Box } from "grommet/components/Box";
+import { Box } from 'grommet/components/Box';
 
 export default function Homepage() {
   const shopList = useSelector((state) => state.shopList);
@@ -27,18 +27,29 @@ export default function Homepage() {
   return (
     <div>
       <form onSubmit={submitHandler}>
-        <Box responsive="true" justify="center" direction="row" gap="small" pad={{ horizontal: '56px', vertical: "30px" }}>
+        <Box
+          responsive='true'
+          justify='center'
+          direction='row'
+          gap='small'
+          pad={{ horizontal: '56px', vertical: '30px' }}
+        >
           <TextInput
             icon={<FormSearch />}
-            size="small"
-            placeholder="Search"
+            size='small'
+            placeholder='Search'
             onChange={(e) => setSearchKeyword(e.target.value)}
           />
-          <Button primary href="/" active="true" label="Back" />
+          <Button primary href='/' active='true' label='Back' />
         </Box>
       </form>
-      {loading ? <div>loading...</div> : error ? { error } :
-        <Shops shops={shops}></Shops>}
+      {loading ? (
+        <div>loading...</div>
+      ) : error ? (
+        { error }
+      ) : (
+        <Shops shops={shops}></Shops>
+      )}
     </div>
   );
 }
