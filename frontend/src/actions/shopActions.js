@@ -76,7 +76,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
         product,
         {
           headers: {
-            Authorization: 'Bearer ' + sellerInfo.token,
+            Authorization: 'Bearer' + sellerInfo.token,
           },
         }
       );
@@ -87,7 +87,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
         product,
         {
           headers: {
-            Authorization: 'Bearer ' + sellerInfo.token,
+            Authorization: 'Bearer' + sellerInfo.token,
           },
         }
       );
@@ -110,7 +110,7 @@ const deleteProduct = (stuff) => async (dispatch, getState) => {
       '/api/shops/deleteproducts/' + stuff.sel_id + '/' + stuff.prod_id,
       {
         headers: {
-          Authorization: 'Bearer ' + sellerInfo.token,
+          Authorization: 'Bearer' + sellerInfo.token,
         },
       }
     );
