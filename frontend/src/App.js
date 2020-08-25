@@ -15,7 +15,8 @@ import Sellerinventorypage from './Pages/Sellerinventorypage';
 import Sellerproductspage from './Pages/Sellerproductspage';
 import Userorderpage from './Pages/Userorderpage';
 import Shippingpage from './Pages/Shipping';
-
+import OrderManagement from './Pages/OrderManagement';
+import OrderInfo from './Pages/OrderInfo';
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -35,7 +36,12 @@ function App() {
         <Route path='/' exact={true} component={Homepage} />
         <Route path='/shop/:id' component={Shoppage} />
         <Route path='/cart/:id?' component={Cartpage} />
-        <Route path="/userorder/:id" component={Userorderpage} />
+        <Route path='/userorder/:id' component={Userorderpage} />
+        <Route path='/seller/orders/:id' component={OrderManagement} />
+        <Route
+          path='/seller/orderdetails/:id/:sellerid'
+          component={OrderInfo}
+        />
       </div>
     </BrowserRouter>
   );
