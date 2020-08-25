@@ -67,7 +67,7 @@ export default function Sellerinventorypage(props) {
     return () => {
       //
     };
-  }, [successSave, loading]);
+  }, [successSave, Object]);
 
   const submitHandler = (e) => {
     e.preventDefault();

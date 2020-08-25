@@ -32,7 +32,6 @@ router.post('/', isAuth, async (req, res) => {
 // @desc     show orders on the DashBoard
 // @access   Private
 router.get('/:id', async (req, res) => {
-
   try {
     const shop = await Shop.findOne({
       seller_id: req.params.id,
@@ -41,9 +40,8 @@ router.get('/:id', async (req, res) => {
     const orders = await Order.find({
       'cartItems.shop_id': shop._id,
     });
-    
+
     res.send(orders);
-    
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');
@@ -54,7 +52,8 @@ router.get('/:id', async (req, res) => {
 // @desc     show order details(productItems)
 // @access   Private
 router.get('/:id/:order_id', async (req, res) => {
-
+  console.log(req.params.id);
+  console.log(req.params.order_id);
   try {
     const shop = await Shop.findOne({
       seller_id: req.params.id,
@@ -62,20 +61,17 @@ router.get('/:id/:order_id', async (req, res) => {
 
     const order = await Order.find({
       'cartItems.shop_id': shop._id,
-    }).
-    find({_id: req.params.order_id});
+    }).find({ _id: req.params.order_id });
 
-    order[0].cartItems = order[0].cartItems.filter(item => item.shop_id.toString() === shop._id.toString())
-    
-    res.send(order)
-    
+    order[0].cartItems = order[0].cartItems.filter(
+      (item) => item.shop_id.toString() === shop._id.toString()
+    );
+    const orderResponse = order[0];
+    res.send(orderResponse);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');
   }
 });
-
-
-
 
 export default router;

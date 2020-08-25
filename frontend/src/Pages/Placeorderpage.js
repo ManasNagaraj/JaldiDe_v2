@@ -14,11 +14,10 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
 export default function Placeorder(props) {
-
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems, shipping } = cart;
-  
+
   // if (!shipping) {
   //   props.history.push('shipping');
   // }
@@ -36,7 +35,10 @@ export default function Placeorder(props) {
       padding: theme.spacing(2, 4, 3),
     },
   }));
-  const itemPrice = cartItems.reduce((total, product) => total + product.pprice*product.qty, 0);
+  const itemPrice = cartItems.reduce(
+    (total, product) => total + product.pprice * product.qty,
+    0
+  );
 
   const placeOrderHandler = () => {
     // create an order
@@ -59,7 +61,6 @@ export default function Placeorder(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  
   return (
     <div>
       <div className='placeorder'>
@@ -67,7 +68,6 @@ export default function Placeorder(props) {
           <div>
             <h3>Delivery Address</h3>
             <div style={{ marginTop: '1rem' }}>
-              
               {cart.shipping.address},<br></br>
               {cart.shipping.city} - {cart.shipping.pincode},<br></br>
               {cart.shipping.country}
@@ -115,7 +115,6 @@ export default function Placeorder(props) {
                 <div>
                   <h5>Total Price</h5>
                 </div>
-
                 <div className='cart-price' style={{ color: 'gold' }}>
                   Rs.{itemPrice}
                 </div>
@@ -127,13 +126,13 @@ export default function Placeorder(props) {
                 variant='contained'
                 color='primary'
                 className='margin'
-                onClick={(placeOrderHandler) ,handleOpen } 
+                onClick={placeOrderHandler}
               >
                 Place Order
               </Button>
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
+              {/* <Modal
+                aria-labelledby='transition-modal-title'
+                aria-describedby='transition-modal-description'
                 className={classes.modal}
                 open={open}
                 closeAfterTransition
@@ -144,22 +143,25 @@ export default function Placeorder(props) {
               >
                 <Fade in={open}>
                   <div className={classes.paper}>
-                    <h2 id="transition-modal-title">Order Successfull</h2>
-                    <p id="transition-modal-description">Thank you for choosing us your order will be delivered in 2 hours</p>
+                    <h2 id='transition-modal-title'>Order Successfull</h2>
+                    <p id='transition-modal-description'>
+                      Thank you for choosing us your order will be delivered in
+                      2 hours
+                    </p>
                     <Button
                       variant='contained'
                       color='primary'
                       className='margin'
                       onClick={(e) => {
                         e.preventDefault();
-                        window.location.href='/';
-                        }}
-                      >
+                        window.location.href = '/';
+                      }}
+                    >
                       Back to Homepage
                     </Button>
                   </div>
                 </Fade>
-              </Modal>
+              </Modal> */}
             </li>
           </ul>
         </div>
