@@ -2,8 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveProduct, listShops, deleteProduct } from '../actions/shopActions';
 import Axios from 'axios';
+import { makeStyles } from '@material-ui/core';
+import { Box } from "grommet/components/Box";
+import IconButton from "@material-ui/core/IconButton";
+import TextField from '@material-ui/core/TextField';
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import { FormUpload, Camera } from 'grommet-icons';
+import { Modal } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // "& > *": {
+    //   margin: theme.spacing(1)
+    // }
+  },
+  input: {
+    display: "none"
+  }
+}));
 
 export default function Sellerproductspage(props) {
+
+  const classes = useStyles();
   let sellerid = props.match.params.id;
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -100,6 +120,8 @@ export default function Sellerproductspage(props) {
           Add Products to your Shop
         </button>
       </div>
+
+      {/* FORM START */}
       {modalVisible && (
         <div className='form'>
           <form onSubmit={submitHandler}>
@@ -133,16 +155,41 @@ export default function Sellerproductspage(props) {
                 ></textarea>
               </li>
               <li>
-                <label htmlFor='image'>Image</label>
-                <input
-                  type='text'
-                  name='image'
-                  value={image}
-                  id='image'
-                  onChange={(e) => setImage(e.target.value)}
-                ></input>
-                <input type='file' onChange={UploadFileHandler}></input>
-                {Uploading && <div>Uploading...</div>}
+              <label htmlFor='image'>Product Image</label>
+              <Box direction="row">
+                <TextField
+                required
+                type='text'
+                name='image'
+                value={image}
+                id='image'
+                disabled
+                onChange={(e) => setImage(e.target.value)}
+                label='Upload Product Image'
+                defaultValue=''
+                variant='outlined'
+                />
+                  <div className={classes.root}>
+                    <input
+                      accept="image/*"
+                      onChange={UploadFileHandler}
+                      className={classes.input}
+                      id="icon-button-file"
+                      type="file"
+                    />
+                    {Uploading && <div>Uploading...</div>}
+                    <label htmlFor="icon-button-file">
+                      <IconButton
+                        color="primary"
+                        aria-label="upload picture"
+                        component="span"
+                      >
+                        <Camera size="medium"/>
+                      </IconButton>
+                    </label>
+                  </div>
+                </Box>
+
               </li>
               <li>
                 <li>
@@ -173,6 +220,7 @@ export default function Sellerproductspage(props) {
           </form>
         </div>
       )}
+      {/* FORM END */}
 
       {products ? (
         <div className='product-list'>

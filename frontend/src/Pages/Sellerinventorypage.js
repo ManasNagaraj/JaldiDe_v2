@@ -4,8 +4,28 @@ import { useSelector, useDispatch } from 'react-redux';
 import { signin } from '../actions/sellerActions';
 import { saveShop, listShops } from '../actions/shopActions';
 import Axios from 'axios';
+import TextField from '@material-ui/core/TextField';
+import SellerSteps from '../components/SellerSteps.js';
+import IconButton from "@material-ui/core/IconButton";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import { FormUpload, Camera } from 'grommet-icons';
+import { makeStyles } from '@material-ui/core';
+import { Box } from "grommet/components/Box";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // "& > *": {
+    //   margin: theme.spacing(1)
+    // }
+  },
+  input: {
+    display: "none"
+  }
+}));
 
 export default function Sellerinventorypage(props) {
+
+  const classes = useStyles();
   let sellerid = props.match.params.id;
 
   const id = props.match.params.id;
@@ -67,7 +87,8 @@ export default function Sellerinventorypage(props) {
     return () => {
       //
     };
-  }, [successSave, Object]);
+  }, [successSave,object]);
+
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -83,12 +104,14 @@ export default function Sellerinventorypage(props) {
   };
 
   return (
-    <div className='content content-margined'>
+    <div>
+      <SellerSteps step1 step2/>
+    <div>
       <div className='form'>
         <form onSubmit={submitHandler}>
           <ul className='form-container'>
             <li>
-              <h2>Create your virtual Shop</h2>
+              <h3>Create your Online Shop</h3>
             </li>
             <li>
               {loadingSave && <div>Loading...</div>}
@@ -97,47 +120,82 @@ export default function Sellerinventorypage(props) {
 
             <li>
               <label htmlFor='name'>Shop Name</label>
-              <input
+              <TextField
+                required
                 type='text'
-                name='name'
-                value={name}
                 id='name'
+                name='name'
                 onChange={(e) => setName(e.target.value)}
-              ></input>
+                label='Shop Name'
+                defaultValue=''
+                variant='outlined'
+              />
             </li>
 
             <li>
-              <label htmlFor='description'>Description</label>
-              <textarea
+            <label htmlFor='name'>Shop Description</label>
+              <TextField
+                required
                 name='description'
                 value={desc}
                 id='desc'
                 onChange={(e) => setDesc(e.target.value)}
-              ></textarea>
+                label='Shop Description (2 Line)'
+                defaultValue=''
+                variant='outlined'
+              />
             </li>
             <li>
               <li>
-                <label htmlFor='image'>Image</label>
-                <input
-                  type='text'
-                  name='image'
-                  value={image}
-                  id='image'
-                  onChange={(e) => setImage(e.target.value)}
-                ></input>
-                <input type='file' onChange={UploadFileHandler}></input>
-                {Uploading && <div>Uploading...</div>}
+              <label htmlFor='name'>Shop Image</label>
+              <Box direction="row">
+                <TextField
+                required
+                type='text'
+                name='image'
+                value={image}
+                id='image'
+                disabled
+                onChange={(e) => setImage(e.target.value)}
+                label='Upload Shop Front Image'
+                defaultValue=''
+                variant='outlined'
+                />
+                  <div className={classes.root}>
+                    <input
+                      accept="image/*"
+                      onChange={UploadFileHandler}
+                      className={classes.input}
+                      id="icon-button-file"
+                      type="file"
+                    />
+                    {Uploading && <div>Uploading...</div>}
+                    <label htmlFor="icon-button-file">
+                      <IconButton
+                        color="primary"
+                        aria-label="upload picture"
+                        component="span"
+                      >
+                        <Camera size="medium"/>
+                      </IconButton>
+                    </label>
+                  </div>
+                </Box>
               </li>
 
               <li>
                 <label htmlFor='name'>Category</label>
-                <input
-                  type='text'
-                  name='category'
-                  value={category}
-                  id='category'
-                  onChange={(e) => setCategory(e.target.value)}
-                ></input>
+                <TextField
+                required
+                type='text'
+                name='category'
+                value={category}
+                id='category'
+                onChange={(e) => setCategory(e.target.value)}
+                label='Shop Category'
+                defaultValue=''
+                variant='outlined'
+              />
               </li>
 
               <button type='submit' className='button primary'>
@@ -148,5 +206,7 @@ export default function Sellerinventorypage(props) {
         </form>
       </div>
     </div>
+    </div>
   );
+  
 }

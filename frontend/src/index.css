@@ -12,26 +12,21 @@ code {
 }
 
 /* SignInpage CSS */
+/* forms */
+
 .form {
   display: flex;
-  margin: 5rem;
   justify-content: center;
   align-items: center;
   height: 100%;
-  max-width: fill-available;
-  max-width: -moz-fill-available;
-  max-width: -webkit-fill-available;
 }
 .form-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 23rem;
+  /* min-width: fill-available; */
   padding: 2rem;
-  max-width: fill-available;
-  max-width: -moz-fill-available;
-  max-width: -webkit-fill-available;
-  margin: 2rem;
-  border: 0.05rem #c0c0c0 solid;
+  border: 0.1rem #c0c0c0 solid;
   border-radius: 0.5rem;
   list-style-type: none;
 }
@@ -74,10 +69,16 @@ tbody > tr:nth-child(odd) {
 .checkout-step {
   display: flex;
   justify-self: space-between;
-  min-width: fill-available;
+  /* min-width: fill-available;
   min-width: -moz-available;
-  min-width: -webkit-fill-available;
-  max-width: 40rem;
+  min-width: -webkit-fill-available; */
+
+  /* width: 100%; */
+  min-width: -moz-available;          /* WebKit-based browsers will ignore this. */
+  min-width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  min-width: fill-available;
+
+  /* max-width: 40rem; */
   margin: 1rem;
 }
 
@@ -256,4 +257,44 @@ tbody > tr:nth-child(odd) {
   flex: 1 1;
   font-size: 1.5rem;
   text-align: right;
+}
+
+/* Random Stuff */
+.button {
+  padding: 0.25rem;
+  border: 0.1rem #808080 solid;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.button:hover {
+  border: 0.1rem #404040 solid;
+}
+.button.primary {
+  background-color: #f0c040;
+}
+.button.secondary {
+  background-color: #f0f0f0;
+}
+.text-center {
+  text-align: center;
+}
+
+/* admin */
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+.dropdown-content {
+  position: absolute;
+  display: none;
+  right: 0;
+  padding: 1rem;
+  list-style-type: none;
+  z-index: 1;
+  background-color: #203040;
+  margin: 0;
+  margin-top: 0.4rem;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
 }

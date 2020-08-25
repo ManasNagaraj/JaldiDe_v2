@@ -2,6 +2,7 @@ import React ,{ useEffect, useState }from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { register } from '../actions/sellerActions';
+import SellerSteps from '../components/SellerSteps';
 
 export default function SellerRegisterpage(props) {
 
@@ -29,6 +30,9 @@ export default function SellerRegisterpage(props) {
 
     return (
         <div>
+            <div >
+            <SellerSteps step1 />
+            </div>
             <div className="form">
             <form onSubmit={submitHandler} >
             <ul className="form-container">
@@ -67,7 +71,7 @@ export default function SellerRegisterpage(props) {
                 <button type="submit" className="button primary">Register</button>
                 </li>
                 <li>
-                Already have an account? <Link to="/signin">Sign-in</Link>
+                Already have an account? <Link to="/seller/signin">Sign-in</Link>
                 </li>
 
             </ul>

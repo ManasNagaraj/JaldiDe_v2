@@ -49,11 +49,13 @@ export default function Placeorder(props) {
         itemPrice,
       })
     );
-  };
-
-  const handleOpen = () => {
+    //opens the model after creating order
     setOpen(true);
   };
+
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
   const clearCartHandler = () => {
     dispatch(removeAllFromCart());
@@ -115,7 +117,7 @@ export default function Placeorder(props) {
                 <div>
                   <h5>Total Price</h5>
                 </div>
-                <div className='cart-price' style={{ color: 'gold' }}>
+                <div className='cart-price'>
                   Rs.{itemPrice}
                 </div>
                 Free shipping {':)'}
@@ -126,7 +128,9 @@ export default function Placeorder(props) {
                 variant='contained'
                 color='primary'
                 className='margin'
+
                 onClick={placeOrderHandler}
+
               >
                 Place Order
               </Button>

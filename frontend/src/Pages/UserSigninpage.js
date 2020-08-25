@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signin } from '../actions/userActions';
+import TextField from '@material-ui/core/TextField';
 import CheckoutSteps from '../components/CheckoutSteps';
 
 export default function UserSigninpage(props) {
@@ -40,29 +41,34 @@ export default function UserSigninpage(props) {
         <form onSubmit={submitHandler}>
           <ul className='form-container'>
             <li>
-              <h2>User Sign-In</h2>
+              <h3>User Sign-In</h3>
             </li>
             <li>
               {loading && <div>Loading...</div>}
               {error && <div>{error}</div>}
             </li>
             <li>
-              <label htmlFor='email'>Email</label>
-              <input
-                type='email'
+              <TextField
+                required
                 name='email'
                 id='email'
+                label='Email'
+                defaultValue=''
+                variant='outlined'
                 onChange={(e) => setEmail(e.target.value)}
-              ></input>
+              />
             </li>
             <li>
-              <label htmlFor='password'>Password</label>
-              <input
+              <TextField
+                required
                 type='password'
                 id='password'
                 name='password'
                 onChange={(e) => setPassword(e.target.value)}
-              ></input>
+                label='Password'
+                defaultValue=''
+                variant='outlined'
+              />
             </li>
             <li>
               <button type='submit' className='button primary'>

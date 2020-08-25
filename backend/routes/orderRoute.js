@@ -8,7 +8,8 @@ const router = express.Router();
 // @route    POST api/orders
 // @desc     Create an order
 // @access   Private
-router.post('/', isAuth, async (req, res) => {
+// isAuth commented out as it is giving error
+router.post('/',isAuth, async (req, res) => {
   try {
     console.log(req.body);
     const order = new Order({

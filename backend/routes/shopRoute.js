@@ -46,6 +46,7 @@ router.post('/create/:id', async (req, res) => {
       seller_id: req.params.id,
       name: req.body.name,
       description: req.body.desc,
+      image: req.body.image,
     });
     shop.category.push(req.body.category);
 
