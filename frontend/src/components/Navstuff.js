@@ -81,6 +81,7 @@ export default function Navstuff(props) {
               <Dropdown.Menu>
                 <Dropdown.Item href='/seller/signin'>Seller</Dropdown.Item>
                 <Dropdown.Item href='/user/signin'>User</Dropdown.Item>
+                <Dropdown.Item onClick={logout}>Log Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           )}{' '}

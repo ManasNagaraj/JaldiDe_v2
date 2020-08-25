@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signin } from '../actions/sellerActions';
+import SellerSteps from '../components/SellerSteps';
+import TextField from '@material-ui/core/TextField';
 
 export default function SellerSigninpage(props) {
 
@@ -29,6 +31,7 @@ export default function SellerSigninpage(props) {
 
     return (
         <div>
+            <SellerSteps step1 />
             <div className="form">
             <form onSubmit={submitHandler} >
             <ul className="form-container">
@@ -40,16 +43,27 @@ export default function SellerSigninpage(props) {
                 {error && <div>{error}</div>}
                 </li>
                 <li>
-                <label htmlFor="email">
-                    Email
-                </label>
-                <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)}>
-                </input>
+                    <TextField
+                    required
+                    name='email'
+                    id='email'
+                    label='Email'
+                    defaultValue=''
+                    variant='outlined'
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
                 </li>
                 <li>
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}>
-                </input>
+                    <TextField
+                    required
+                    type='password'
+                    id='password'
+                    name='password'
+                    onChange={(e) => setPassword(e.target.value)}
+                    label='Password'
+                    defaultValue=''
+                    variant='outlined'
+                    />
                 </li>
                 <li>
                 <button type="submit" className="button primary">Signin</button>
@@ -58,7 +72,7 @@ export default function SellerSigninpage(props) {
                 New as a Seller on JaldiDe?
                 </li>
                 <li>
-                <Link to="/register" className="button secondary text-center" >Create your JaldiDe Seller account</Link>
+                <Link to="/seller/register" className="button secondary text-center" >Create your JaldiDe Seller account</Link>
                 </li>
             </ul>
             </form>

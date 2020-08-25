@@ -6,6 +6,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import TextField from '@material-ui/core/TextField';
 import { PromiseProvider } from 'mongoose';
 import Button from '@material-ui/core/Button';
+import { Box } from '@material-ui/core';
 
 export default function Shippingpage(props) {
   const [address, setAddress] = useState('');
@@ -24,6 +25,7 @@ export default function Shippingpage(props) {
   return (
     <div style={{ alignContent: 'space-between' }}>
       <CheckoutSteps step1 step2></CheckoutSteps>
+      <Box pad="small" responsive="true">
       <div className='form'>
         <form onSubmit={submitHandler}>
           <ul className='form-container'>
@@ -76,13 +78,17 @@ export default function Shippingpage(props) {
             </li>
 
             <li>
-              <Button variant='contained' type='submit' color='primary'>
+            <button type='submit' className='button primary'>
+              Continue
+            </button>
+              {/* <Button variant='contained' type='submit' color='primary'>
                 Continue
-              </Button>
+              </Button> */}
             </li>
           </ul>
         </form>
       </div>
+      </Box>
     </div>
   );
 }
