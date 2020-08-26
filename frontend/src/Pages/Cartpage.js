@@ -126,9 +126,8 @@ export default function Cartpage(props) {
                     </div>
                 </div>
             </div>
-        }
-                    
-      </div>
+        }               
+        </div>
     </div>
   );
 }

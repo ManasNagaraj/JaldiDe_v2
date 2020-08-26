@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsOrder, deleteOrder } from '../actions/orderActions';
+import { Box } from "grommet/components/Box";
+import { Heading, Paragraph } from 'grommet';
 import { Link } from 'react-router-dom';
 import SellerRegisterpage from './SellerRegisterpage';
 import Cookies from 'js-cookie';
@@ -8,7 +10,7 @@ import { orderListReducer } from '../reducers/orderReducers';
 
 export default function OrderInfo(props) {
   const dispatch = useDispatch();
-
+  
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading: loadingOrders, order, error: errorOrders } = orderDetails;
 
@@ -17,56 +19,77 @@ export default function OrderInfo(props) {
     return () => {};
   }, []);
 
-  const deleteHandler = (order) => {
-    dispatch(deleteOrder(order._id));
-  };
+  // const deleteHandler = (order) => {
+  //   dispatch(deleteOrder(order._id));
+  // };
+  console.log(order)
 
   return loadingOrders ? (
     <div>Loading...</div>
-  ) : (
-    <div className='content content-margined'>
-      <div className='order-header'>
-        <h3>Orders</h3>
-      </div>
-      <div className='order-list'>
-        <table className='table'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>USER</th>
-              <th>PAID</th>
-              <th>PAID AT</th>
-              <th>DELIVERED</th>
-              <th>DELIVERED AT</th>
-              <th>ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{(order._id, console.log(order))}</td>
-              <td>{order._id}</td>
-              <td>{order.time}</td>
-              <td>{order.total}</td>
-              {/* <td>{order.user.name}</td> */}
-              <td>{order.isPaid}</td>
-              {/* <td>{order.paidAt}</td> */}
-              {/* <td>{order.isDelivered.toString()}</td> */}
-              {/* <td>{order.deliveredAt}</td>  */}
-              <td>
-                <button
-                  type='button'
-                  onClick={() => deleteHandler(order)}
-                  className='button secondary'
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  ) : 
+  ( <div>
+    <Box
+      round="medium"
+      responsive="true"
+      direction="column"
+      // border={{ color: 'brand', size: 'large' }}
+      pad="small">
+      <Heading margin="none" alignSelf="center" pad="small">Order Details :</Heading>
+      <Paragraph margin="none" alignSelf="center">Order Id: {order._id} </Paragraph>
+    </Box>
+    <div className="row no-gutters justify-content-center">
+      <div className="col-sm-8 p-3">
+        { order.cartItems &&
+          <div className="card card-body border-0">
+          {
+            order.cartItems.map((product) => (
+              <div style={{padding:10}}>
+              <Box background="light-2" >  
+                <div className="row no-gutters py-2">
+                  <div className="col-sm-2 p-2">
+                      <img
+                      alt={product.pname}
+                      style={{margin: "0 auto", maxHeight: "100px"}} 
+                      src={product.image} className="img-fluid d-block"/>
+                  </div>
+                  <div className="col-sm-4 p-2 text-center">
+                      <h5 className="mb-1">{product.pname}</h5>
+                      <p className="mb-1">Price: Rs. {product.pprice} </p>
+                  </div>
+                  <div className="col-sm-2 p-2 text-center ">
+                    <p className="mb-0">Qty: {product.qty}</p>
+                  </div>
+                </div>
+              </Box>
+              </div>
+            ))
+          }
+          </div>
+        } 
+        </div>
+        {
+            order.cartItems && 
+            <div className="col-sm-4 p-3">
+                <div className="card card-body">
+                    <p className="mb-1">Customer: Name</p>
+                    <hr className="my-4"/>
+                    <p className="mb-1">{order.time}</p>
+                    <hr className="my-4"/>
+                    <p className="mb-1">Total Items</p>
+                    <h4 className=" mb-3 txt-right">{order.cartItems.reduce((total, product) => total + product.qty, 0)}</h4>
+                    <p className="mb-1">Total Amount</p>
+                    <h3 className="m-0 txt-right">Rs. {order.cartItems.reduce((total, product) => total + product.pprice*product.qty, 0)}</h3>
+                    <hr className="my-4"/>
+                    <p className="mb-1 txt-right">Shipping Address: {order.shipping.address}, {order.shipping.city} </p>
+
+                </div>
+            </div>
+        }               
+        </div>
+        </div>
+        
+        
+
+        
   );
 }
