@@ -2,19 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveProduct, listShops, deleteProduct } from '../actions/shopActions';
 import Axios from 'axios';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, withStyles, Tooltip } from '@material-ui/core';
 import { Box } from "grommet/components/Box";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from '@material-ui/core/TextField';
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import { FormUpload, Camera } from 'grommet-icons';
-import { Modal } from '@material-ui/core';
+import { Camera } from 'grommet-icons';
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import DeleteIcon from '@material-ui/icons/Delete';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
+import { Heading } from 'grommet';
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white
+  },
+  body: {
+    fontSize: 14
+  }
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover
+    }
+  }
+}))(TableRow);
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // "& > *": {
-    //   margin: theme.spacing(1)
-    // }
+  table: {
+    minWidth: 700
   },
   input: {
     display: "none"
@@ -111,14 +137,22 @@ export default function Sellerproductspage(props) {
 
   const deleteHandler = (product) => {
     dispatch(deleteProduct({ prod_id: product._id, sel_id: sellerid }));
+    props.history.push('/')
   };
 
   return (
     <div className='content content-margined'>
-      <div className='product-header'>
-        <button className='button primary' onClick={() => openModal({})}>
-          Add Products to your Shop
-        </button>
+      <Box
+      responsive="true"
+      pad="small">
+      <Heading margin="none" alignSelf="center" pad="small">Manage Shop Inventory</Heading>
+      </Box>
+
+      <div style={{padding:12}}>
+      <Fab variant="extended" onClick={()=>openModal({})}>
+        <AddIcon className={classes.extendedIcon} />
+        Add Products
+      </Fab>
       </div>
 
       {/* FORM START */}
@@ -223,45 +257,47 @@ export default function Sellerproductspage(props) {
       {/* FORM END */}
 
       {products ? (
-        <div className='product-list'>
-          <table className='table'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <div>
-                {products.map((product) => (
-                  <tr key={product._id}>
-                    <td>{product._id}</td>
-                    <td>{product.pname}</td>
-                    <td>{product.pprice}</td>
-                    <td>{product.pdesc}</td>
-                    <td>
-                      <button
-                        className='button'
-                        onClick={() => openModal(product)}
-                      >
-                        Edit
-                      </button>{' '}
-                      <button
-                        className='button'
-                        onClick={() => deleteHandler(product)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </div>
-            </tbody>
-          </table>
-        </div>
+        <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Product ID</StyledTableCell>
+              <StyledTableCell align="center">Product Name</StyledTableCell>
+              <StyledTableCell align="center">Price</StyledTableCell>
+              <StyledTableCell align="center">Description</StyledTableCell>
+              <StyledTableCell align="center">Action</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products.map((product) => (
+              <StyledTableRow key={product._id}>
+                <StyledTableCell component="th" scope="row">
+                  {product._id}
+                </StyledTableCell>
+                <StyledTableCell align="center">{product.pname}</StyledTableCell>
+                <StyledTableCell align="center">{product.pprice}</StyledTableCell>
+                <StyledTableCell align="center">{product.pdesc}</StyledTableCell>
+                <StyledTableCell align="center">
+
+                  <Box direction="row" gap="small" justify="center">
+                    <Tooltip title="Edit" onClick={() => openModal(product)}>
+                      <Fab size="small" color="secondary" aria-label="edit">
+                      <EditIcon />
+                      </Fab>
+                    </Tooltip>
+                    <Tooltip title="Delete" onClick={() => deleteHandler(product)}>
+                      <Fab size="small" color="secondary">
+                        <DeleteIcon />
+                      </Fab>
+                    </Tooltip>
+                  </Box>
+
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       ) : (
         <div>loading</div>
       )}

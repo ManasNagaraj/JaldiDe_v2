@@ -298,3 +298,18 @@ tbody > tr:nth-child(odd) {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+/* TABEL */
+.content-margined {
+  margin: 1rem;
+}
+
+.table {
+  width: 100%;
+}
+th {
+  text-align: left;
+}
+tbody > tr:nth-child(odd) {
+  background-color: #f0f0f0;
+}
