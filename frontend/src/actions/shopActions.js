@@ -71,14 +71,14 @@ const saveProduct = (product) => async (dispatch, getState) => {
 
     if (!product.product_id) {
       const { data } = await axios.post(
-        '/api/shops/addproducts/' + product._id,
+        '/api/shops/addproducts/' + product._id,product
 
-        product,
-        {
-          headers: {
-            Authorization: 'Bearer' + sellerInfo.token,
-          },
-        }
+        // product,
+        // {
+        //   headers: {
+        //     Authorization: 'Bearer' + sellerInfo.token,
+        //   },
+        // }
       );
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     } else {

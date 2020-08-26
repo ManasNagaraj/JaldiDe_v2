@@ -27,21 +27,21 @@ function App() {
         <Navstuff />
         <Route path='/user/signin' component={UserSigninpage} />
         <Route path='/user/register' component={UserRegisterpage} />
-        <Route path='/user/shipping' component={Shippingpage} />
         <Route path='/seller/signin' component={SellerSigninpage} />
-        <Route path='/user/placeorder' component={Placeorderpage} />
         <Route path='/seller/register' component={SellerRegisterpage} />
-        <Route path='/createshop/:id' component={Sellerinventorypage} />
-        <Route path='/addproducts/:id' component={Sellerproductspage} />
+
         <Route path='/' exact={true} component={Homepage} />
         <Route path='/shop/:id' component={Shoppage} />
         <Route path='/cart/:id?' component={Cartpage} />
-        <Route path='/userorder/:id' component={Userorderpage} />
-        <Route path='/seller/orders/:id' component={OrderManagement} />
-        <Route
-          path='/seller/orderdetails/:id/:sellerid'
-          component={OrderInfo}
-        />
+        <Route path='/user/shipping' component={Shippingpage} />
+        <Route path='/user/placeorder' component={Placeorderpage} />
+  
+        <Route path='/createshop/:id' component={Sellerinventorypage} />
+        <Route path='/addproducts/:id' component={Sellerproductspage} />
+        
+        {/* <Route path='/userorder/:id' component={Userorderpage} /> */}
+        <Route path='/seller/orders/' component={OrderManagement} />
+        <Route path='/seller/orderdetails/:id/:sellerid'component={OrderInfo} />
       </div>
     </BrowserRouter>
   );
