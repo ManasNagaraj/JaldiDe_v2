@@ -137,7 +137,6 @@ export default function Sellerproductspage(props) {
 
   const deleteHandler = (product) => {
     dispatch(deleteProduct({ prod_id: product._id, sel_id: sellerid }));
-    props.history.push('/')
   };
 
   return (
