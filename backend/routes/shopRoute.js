@@ -66,7 +66,8 @@ router.post('/create/:id', async (req, res) => {
 // @route    POST api/shop/addproducts/:id
 // @desc     add products to the shopID
 // @access   Private
-router.post('/addproducts/:id', isAuth, async (req, res) => {
+// isAuth JWT ERROR
+router.post('/addproducts/:id', async (req, res) => {
   try {
     const shop = await Shop.findOne({
       seller_id: req.params.id,

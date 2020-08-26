@@ -5,6 +5,7 @@ import { listShops } from '../actions/shopActions';
 import { FormSearch } from 'grommet-icons';
 import { Button, Grommet, TextInput } from 'grommet';
 import { Box } from 'grommet/components/Box';
+import { CircularProgress } from '@material-ui/core';
 
 export default function Homepage() {
   const shopList = useSelector((state) => state.shopList);
@@ -44,7 +45,8 @@ export default function Homepage() {
         </Box>
       </form>
       {loading ? (
-        <div>loading...</div>
+        // <div>loading...</div>
+        <CircularProgress />
       ) : error ? (
         { error }
       ) : (

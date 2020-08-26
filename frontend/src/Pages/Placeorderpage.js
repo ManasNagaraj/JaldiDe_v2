@@ -130,11 +130,10 @@ export default function Placeorder(props) {
                 className='margin'
 
                 onClick={placeOrderHandler}
-
               >
                 Place Order
               </Button>
-              {/* <Modal
+              <Modal
                 aria-labelledby='transition-modal-title'
                 aria-describedby='transition-modal-description'
                 className={classes.modal}
@@ -165,7 +164,7 @@ export default function Placeorder(props) {
                     </Button>
                   </div>
                 </Fade>
-              </Modal> */}
+              </Modal>
             </li>
           </ul>
         </div>

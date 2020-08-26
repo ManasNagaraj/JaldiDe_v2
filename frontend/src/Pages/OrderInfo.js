@@ -46,6 +46,7 @@ export default function OrderInfo(props) {
           <tbody>
             <tr>
               <td>{(order._id, console.log(order))}</td>
+              <td>{order._id}</td>
               <td>{order.time}</td>
               <td>{order.total}</td>
               {/* <td>{order.user.name}</td> */}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, Dropdown } from 'react-bootstrap';
+import { Navbar,Nav, Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import image from '../img/logo_low_res.png';
@@ -31,7 +31,11 @@ export default function Navstuff(props) {
 
   return (
     <div>
-
+      {/* <Nav direction="row" background="brand" pad="">
+          <h5>2 Hours Delivery</h5>
+          <h5>Contact Us: +91 7878787878</h5>
+          <h5>Email: contact@jaldide.com</h5>
+      </Nav> */}
       <Navbar bg='white' variant='light' expand='lg'>
 
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
