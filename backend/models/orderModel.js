@@ -1,13 +1,14 @@
 import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema({
+  user: String,
   cartItems: [
     {
       shop_id: { type: mongoose.Schema.Types.ObjectId },
       pname: String,
       pdesc: String,
       pprice: String,
-      qty: {type: Number, default:1},
+      qty: { type: Number, default: 1 },
       image: String,
       product: { type: mongoose.Schema.Types.ObjectId },
     },

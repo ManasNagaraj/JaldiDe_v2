@@ -32,6 +32,7 @@ const createOrder = (order) => async (dispatch, getState) => {
     } = await Axios.post('/api/orders', order, {
       headers: {
         Authorization: 'Bearer' + userInfo.token,
+        user: userInfo.name,
       },
     });
 
