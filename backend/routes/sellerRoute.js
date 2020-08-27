@@ -40,6 +40,7 @@ router.post('/register', async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
+      sphone: req.body.sphone,
     });
     const newSeller = await seller.save();
     if (newSeller) {
@@ -47,6 +48,7 @@ router.post('/register', async (req, res) => {
         _id: newSeller.id,
         name: newSeller.name,
         email: newSeller.email,
+        sphone: newSeller.sphone,
         isAdmin: newSeller.isAdmin,
         token: getTokenSeller(newSeller),
       });
