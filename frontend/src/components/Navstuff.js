@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar,Nav, Dropdown } from 'react-bootstrap';
+import { Navbar, Nav, Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import image from '../img/logo_low_res.png';
+import image from '../img/logo2.png';
 import { useSelector } from 'react-redux';
 import logout from '../actions/userActions';
 import { Cart, User } from 'grommet-icons';
@@ -13,7 +13,6 @@ import Cookie from 'js-cookie';
 import IconButton from '@material-ui/core/IconButton';
 
 export default function Navstuff(props) {
-
   const userSignin = useSelector((state) => state.userSignin);
   const { loading, userInfo, error } = userSignin;
   const dispatch = useDispatch();
@@ -36,14 +35,29 @@ export default function Navstuff(props) {
           <h5>Contact Us: +91 7878787878</h5>
           <h5>Email: contact@jaldide.com</h5>
       </Nav> */}
-      <Navbar bg='white' variant='light' expand='lg'>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          height: '2vw',
 
+          justifyContent: 'space-around',
+          backgroundColor: '#ffce7f',
+          alignContent: 'center',
+          fontWeight: '200',
+        }}
+      >
+        <div style={{ fontSize: '1.2vw' }}>2 Hours Delivery</div>
+        <div style={{ fontSize: '1.2vw' }}>Contact Us: +91 7878787878</div>
+        <div style={{ fontSize: '1.2vw' }}>Email:contact@jaldide.com</div>
+      </div>
+      <Navbar bg='white' variant='light' expand='lg'>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Brand href='/'>
           <img
             alt=''
             src={image}
-            width='70'
+            width='175'
             height='70'
             className='d-inline-block align-top'
           />
