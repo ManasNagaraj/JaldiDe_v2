@@ -9,13 +9,14 @@ const router = express.Router();
 // @desc     Create an order
 // @access   Private
 // isAuth commented out as it is giving error
-router.post('/',isAuth, async (req, res) => {
+router.post('/', isAuth, async (req, res) => {
   try {
     console.log(req.body);
     const order = new Order({
       cartItems: req.body.orderItems,
       shipping: req.body.shipping,
       total: req.body.itemPrice,
+      user: req.headers.user
     });
     const newOrder = await order.save();
     if (newOrder) {
