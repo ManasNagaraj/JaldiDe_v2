@@ -5,6 +5,9 @@ const shopSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   image: { type: String, },
+  address1: { type: String, },
+  address2: { type: String, },
+  area: { type: String, },
 
   category: [{ type: String, required: true }],
   productItems: [
