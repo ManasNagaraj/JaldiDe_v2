@@ -70,9 +70,9 @@ export default function Placeorder(props) {
           <div>
             <h3>Delivery Address</h3>
             <div style={{ marginTop: '1rem' }}>
-              {cart.shipping.address},<br></br>
-              {cart.shipping.city} - {cart.shipping.pincode},<br></br>
-              {cart.shipping.country}
+              {cart.shipping.address1},<br></br>
+              {cart.shipping.address2} - {cart.shipping.area},<br></br>
+              {cart.shipping.city}
             </div>
           </div>
 
@@ -89,8 +89,8 @@ export default function Placeorder(props) {
               ) : (
                 cartItems.map((item) => (
                   <li>
-                    <div className='cart-image'>
-                      <img src={'item.image'} alt='product' />
+                    <div className='cart-image' style={{padding: 10}}>
+                      <img src={item.image} alt='product' />
                     </div>
                     <div className='cart-name'>
                       <div>

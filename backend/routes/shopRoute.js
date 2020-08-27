@@ -132,8 +132,4 @@ router.delete('/deleteproducts/:id/:productid', isAuth, async (req, res) => {
   }
 });
 
-// const escapeRegex = (text) => {
-//   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-// };
-
 export default router;

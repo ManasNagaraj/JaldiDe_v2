@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsOrder, deleteOrder } from '../actions/orderActions';
 import { Box } from "grommet/components/Box";
 import { Heading, Paragraph } from 'grommet';
-import { Link } from 'react-router-dom';
-import SellerRegisterpage from './SellerRegisterpage';
-import Cookies from 'js-cookie';
-import { orderListReducer } from '../reducers/orderReducers';
 
 export default function OrderInfo(props) {
   const dispatch = useDispatch();
@@ -71,7 +67,7 @@ export default function OrderInfo(props) {
             order.cartItems && 
             <div className="col-sm-4 p-3">
                 <div className="card card-body">
-                    <p className="mb-1">Customer: Name</p>
+                    <p className="mb-1">Customer: {order.user} </p>
                     <hr className="my-4"/>
                     <p className="mb-1">{order.time}</p>
                     <hr className="my-4"/>
@@ -80,16 +76,12 @@ export default function OrderInfo(props) {
                     <p className="mb-1">Total Amount</p>
                     <h3 className="m-0 txt-right">Rs. {order.cartItems.reduce((total, product) => total + product.pprice*product.qty, 0)}</h3>
                     <hr className="my-4"/>
-                    <p className="mb-1 txt-right">Shipping Address: {order.shipping.address}, {order.shipping.city} </p>
+                    <p className="mb-1 txt-right">Shipping Address: {order.shipping.address1}, {order.shipping.address2}, {order.shipping.area}  </p>
 
                 </div>
             </div>
         }               
         </div>
-        </div>
-        
-        
-
-        
+        </div>        
   );
 }
