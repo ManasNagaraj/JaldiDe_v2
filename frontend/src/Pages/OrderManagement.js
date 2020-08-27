@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none"
   }
 }));
-
+var date;
 export default function OrderManagement(props) {
 
   const classes = useStyles();
@@ -54,7 +54,6 @@ export default function OrderManagement(props) {
     return () => {};
   }, []);
   
-  {console.log(orders)}
   
   return (
     <div className='profile-orders content-margined'>
@@ -88,8 +87,9 @@ export default function OrderManagement(props) {
                 <StyledTableCell component="th" scope="row">
                   {order._id}
                 </StyledTableCell>
-                <StyledTableCell align="center">{order.time}</StyledTableCell>
-                <StyledTableCell align="center">{order.time}</StyledTableCell>
+                <StyledTableCell align="center">{new Date(order.time).toDateString()}</StyledTableCell>
+                <StyledTableCell align="center">{new Date(order.time).toLocaleTimeString({},
+    {hour12:true,hour:'numeric',minute:'numeric'})}</StyledTableCell>
                 <StyledTableCell align="center">{order.user}</StyledTableCell>
                 <StyledTableCell align="center">{order.shipping.area}</StyledTableCell>
               </StyledTableRow>

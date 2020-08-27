@@ -69,7 +69,10 @@ export default function OrderInfo(props) {
                 <div className="card card-body">
                     <p className="mb-1">Customer: {order.user} </p>
                     <hr className="my-4"/>
-                    <p className="mb-1">{order.time}</p>
+                    <p className="mb-1">
+                      {new Date(order.time).toDateString()}  {new Date(order.time).toLocaleTimeString({},
+                      {hour12:true,hour:'numeric',minute:'numeric'})}
+                    </p>
                     <hr className="my-4"/>
                     <p className="mb-1">Total Items</p>
                     <h4 className=" mb-3 txt-right">{order.cartItems.reduce((total, product) => total + product.qty, 0)}</h4>
