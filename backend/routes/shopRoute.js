@@ -47,6 +47,9 @@ router.post('/create/:id', async (req, res) => {
       name: req.body.name,
       description: req.body.desc,
       image: req.body.image,
+      address1: req.body.address1,
+      address2: req.body.address2,
+      area: req.body.area,
     });
     shop.category.push(req.body.category);
 
@@ -131,9 +134,5 @@ router.delete('/deleteproducts/:id/:productid', isAuth, async (req, res) => {
     return res.status(500).send('Server Error');
   }
 });
-
-// const escapeRegex = (text) => {
-//   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-// };
 
 export default router;

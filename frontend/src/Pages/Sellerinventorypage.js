@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signin } from '../actions/sellerActions';
 import { saveShop, listShops } from '../actions/shopActions';
 import Axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import SellerSteps from '../components/SellerSteps.js';
 import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import { FormUpload, Camera } from 'grommet-icons';
+import { Camera } from 'grommet-icons';
 import { makeStyles } from '@material-ui/core';
 import { Box } from "grommet/components/Box";
 
@@ -31,6 +28,9 @@ export default function Sellerinventorypage(props) {
   const id = props.match.params.id;
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
+  const [area, setArea] = useState('');
   const [category, setCategory] = useState('');
   const [image, setImage] = useState('');
   const [Uploading, setUploading] = useState('');
@@ -99,6 +99,9 @@ export default function Sellerinventorypage(props) {
         desc,
         category,
         image,
+        address1,
+        address2,
+        area,
       })
     );
   };
@@ -145,6 +148,43 @@ export default function Sellerinventorypage(props) {
                 variant='outlined'
               />
             </li>
+
+            <li>
+            <label htmlFor='name'>Shop Address</label>
+            <Box direction="column" gap="small">
+              <TextField
+                required
+                name='address1'
+                value={address1}
+                id='address1'
+                onChange={(e) => setAddress1(e.target.value)}
+                label='Address Line 1'
+                defaultValue=''
+                variant='outlined'
+              />
+              <TextField
+                required
+                name='address2'
+                value={address2}
+                id='address2'
+                onChange={(e) => setAddress2(e.target.value)}
+                label='Address Line 2'
+                defaultValue=''
+                variant='outlined'
+              />
+              <TextField
+                required
+                name='area'
+                value={area}
+                id='area'
+                onChange={(e) => setArea(e.target.value)}
+                label='Area'
+                defaultValue=''
+                variant='outlined'
+              />
+              </Box>
+            </li>
+
             <li>
               <li>
               <label htmlFor='name'>Shop Image</label>

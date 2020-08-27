@@ -10,6 +10,7 @@ export default function SellerRegisterpage(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
+    const [sphone, setPhone] = useState('');
     const sellerRegister = useSelector(state => state.sellerRegister);
     const { loading, sellerInfo, error } = sellerRegister;
     const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function SellerRegisterpage(props) {
     
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(register(name, email, password));
+        dispatch(register(name, email, password, sphone));
     }
 
     return (
@@ -57,6 +58,15 @@ export default function SellerRegisterpage(props) {
                 <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)}>
                 </input>
                 </li>
+
+                <li>
+                <label htmlFor="name">
+                    Phone Number
+                </label>
+                <input type="name" name="sphone" id="sphone" onChange={(e) => setPhone(e.target.value)}>
+                </input>
+                </li>
+
                 <li>
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)}>

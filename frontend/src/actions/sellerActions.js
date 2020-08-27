@@ -18,12 +18,12 @@ const signin = (email, password) => async (dispatch) =>
   }
 }
 
-const register = (name, email, password) => async (dispatch) => 
+const register = (name, email, password , sphone) => async (dispatch) => 
 {
-  dispatch({ type: SELLER_REGISTER_REQUEST, payload: { name, email, password } });
+  dispatch({ type: SELLER_REGISTER_REQUEST, payload: { name, email, password, sphone } });
   try 
   {
-    const { data } = await Axios.post("/api/seller/register", { name, email, password });
+    const { data } = await Axios.post("/api/seller/register", { name, email, password ,sphone});
     dispatch({ type: SELLER_REGISTER_SUCCESS, payload: data });
     Cookie.set('sellerInfo', JSON.stringify(data));
   } 

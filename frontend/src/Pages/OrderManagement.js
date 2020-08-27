@@ -53,8 +53,8 @@ export default function OrderManagement(props) {
     dispatch(listMyOrders(props.match.params.id));
     return () => {};
   }, []);
-  if(orders)
-  {console.log(orders.shipping)}
+  
+  {console.log(orders)}
   
   return (
     <div className='profile-orders content-margined'>
@@ -90,8 +90,8 @@ export default function OrderManagement(props) {
                 </StyledTableCell>
                 <StyledTableCell align="center">{order.time}</StyledTableCell>
                 <StyledTableCell align="center">{order.time}</StyledTableCell>
-                <StyledTableCell align="center">Name</StyledTableCell>
-                <StyledTableCell align="center">{order.shipping.city}</StyledTableCell>
+                <StyledTableCell align="center">{order.user}</StyledTableCell>
+                <StyledTableCell align="center">{order.shipping.area}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
