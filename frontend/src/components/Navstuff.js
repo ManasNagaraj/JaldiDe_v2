@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import image from '../img/logo2.png';
 import { useSelector } from 'react-redux';
 import logout from '../actions/userActions';
-import { Cart, User } from 'grommet-icons';
+import { Cart, Power } from 'grommet-icons';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import Cookie from 'js-cookie';
@@ -28,6 +28,14 @@ export default function Navstuff(props) {
     Cookie.set('cartItems', null);
   };
 
+  const login = () => {
+    if (sellerInfo || userInfo) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <div>
       {/* <Nav direction="row" background="brand" pad="">
@@ -47,12 +55,12 @@ export default function Navstuff(props) {
           fontWeight: '200',
         }}
       >
-        <div style={{ fontSize: '1.2vw' }}>2 Hours Delivery</div>
-        <div style={{ fontSize: '1.2vw' }}>Contact Us: +91 7878787878</div>
-        <div style={{ fontSize: '1.2vw' }}>Email:contact@jaldide.com</div>
+        <div style={{ fontSize: '1.5vw' }}>2 Hours Delivery</div>
+        <div style={{ fontSize: '1.5vw' }}>Contact Us: +91 7878787878</div>
+        <div style={{ fontSize: '1.5vw' }}>Email:contact@jaldide.com</div>
       </div>
       <Navbar bg='white' variant='light' expand='lg'>
-        <Navbar.Toggle aria-controls='basic-navbar-nav' />
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Brand href='/'>
           <img
             alt=''
@@ -62,49 +70,65 @@ export default function Navstuff(props) {
             className='d-inline-block align-top'
           />
         </Navbar.Brand>
-        JaldiDe
-        <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='mr-auto'>
-            <Nav.Link href='/seller/register'>Sell</Nav.Link>
 
-            <Nav.Link href='/howdoesitwork'>How does it Work!</Nav.Link>
+        <Navbar.Collapse id='responsive-navbar-nav'>
+          <Nav className='mr-auto'>
+            {'  '}
+            {sellerInfo ? (
+              <>
+                <Nav.Link href='/seller/register'>Manage Inventory</Nav.Link>
+                <Nav.Link href='/seller/register'>Manage Orders</Nav.Link>
+              </>
+            ) : (
+              <Nav.Link href='/seller/register'>Create Your Own Shop</Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className='justify-content-end'>
-          <Link to='/cart'>
-            <IconButton>
-              <Badge badgeContent={cartItems.length} color='secondary'>
-                {' '}
-                <Cart></Cart>
-              </Badge>
-            </IconButton>
-          </Link>
-          {userInfo ? (
+          {userInfo || sellerInfo ? (
             console.log('hi')
           ) : (
-            <Button>sign up</Button>
+            <Button href='/user/register'>sign up</Button>
 
             // <Link to='/users/signin'>Sign In</Link>
           )}{' '}
-          {userInfo ? (
-            <IconButton onClick={logout} href='/'>
-              <User></User>
-            </IconButton>
+          {userInfo || sellerInfo ? (
+            <>
+              <h5>
+                {' '}
+                Hi,{!sellerInfo ? <>{userInfo.name}</> : <>{sellerInfo.name}</>}
+              </h5>
+              <Button
+                onClick={logout}
+                href='/'
+                variant='outlined'
+                style={{ margin: 20 }}
+              >
+                Logout
+              </Button>
+            </>
           ) : (
-            <Dropdown drop='left' margin='20'>
-              <Dropdown.Toggle variant='success' id='dropdown-basic'>
+            <Dropdown drop='down' margin='20'>
+              <Dropdown.Toggle variant='success' id='collasible-nav-dropdown'>
                 Sign In
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
                 <Dropdown.Item href='/seller/signin'>Seller</Dropdown.Item>
                 <Dropdown.Item href='/user/signin'>User</Dropdown.Item>
-                <Dropdown.Item onClick={logout}>Log Out</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           )}{' '}
           {sellerInfo ? <div></div> : <div></div>}
         </Navbar.Collapse>
+        <Link to='/cart'>
+          <IconButton>
+            <Badge badgeContent={cartItems.length} color='secondary'>
+              {' '}
+              <Cart></Cart>
+            </Badge>
+          </IconButton>
+        </Link>
       </Navbar>
     </div>
   );

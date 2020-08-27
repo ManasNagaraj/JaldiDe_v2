@@ -17,7 +17,14 @@ code {
 .bg-white {
   background-color: #ffe9c9 !important;
 }
+.mr-auto {
+  justify-items: space-around !important;
+}
 
+.dropdown-toggle {
+  background-color: #e6640e !important;
+  border: none !important;
+}
 .form {
   display: flex;
   justify-content: center;
